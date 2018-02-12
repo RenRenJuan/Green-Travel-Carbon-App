@@ -1,0 +1,1 @@
+Green Travel 2 Personal Carbon Footprint Calculator==================================================  See git history for origins.  Features for the 2018 app (GT2)      
