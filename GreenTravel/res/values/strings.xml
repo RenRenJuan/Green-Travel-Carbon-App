@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="hello">Hello World, MainSplash!</string>
-    <string name="app_name">GreenTravel</string>
-    <string name="learn_more">Learn More...</string>
-    <string name="proceed">Proceed...</string>
-</resources>

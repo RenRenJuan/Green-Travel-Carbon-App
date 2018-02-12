@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-   <color name="darker_gray">#5A5A5A</color>
-   <color name="semitrans_gray">#99222222</color>
-    <!-- Retrieved via Resources.getColor() and friends. -->
-    <color name="red">#f00</color>
-    <color name="green">#387C44</color>
-    <color name="black">#000000</color>
-</resources>
