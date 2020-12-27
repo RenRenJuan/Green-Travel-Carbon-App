@@ -11,9 +11,9 @@ Green Travel 2 Personal Carbon Footprint Calculator
 
    Original was just Android 
    
-* First Version just same but with a few more parameters for the trip calc.
+* First rebuild same function as in e3fd46357085f9a8efde3cd4b94a5a4f211ee2e4 but with a few more parameters for the trip calc.
 
-   Original was just a proof of GPS (which still works). Subsquently a a full featured
+   Original was just a proof of GPS (which still works). New version is react-native. Subsquently a a full featured
    personal carbon domain with ...
 
 * Backend service available as in app purchase
