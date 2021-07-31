@@ -1,5 +1,5 @@
 
- 2021-07-31 resync prior to update
+ 2021-07-31 resync prior to update, use mandated token
 
 Green Travel 2 Personal Carbon Footprint Calculator
 ==================================================
