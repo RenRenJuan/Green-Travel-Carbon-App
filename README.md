@@ -1,4 +1,6 @@
 
+ 2021-07-31 resync prior to update
+
 Green Travel 2 Personal Carbon Footprint Calculator
 ==================================================
 
