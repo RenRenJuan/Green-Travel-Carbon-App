@@ -7,7 +7,7 @@ GT2 Personal Carbon Calculator
 
 * Expo Only and Full Native Android/iOS code levels. 
 
-   Expo only version will be maintained as starter for the domain model.
+   Expo only version (in Ejectable) will be maintained as starter for the domain model.
    Mostly so that developers can use the simplest version without Google/Apple dev kits.
 
    The full react native code level will support the backend function and other enhancements.
