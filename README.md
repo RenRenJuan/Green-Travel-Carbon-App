@@ -3,17 +3,14 @@ GT2 Personal Carbon Calculator
 
   Features for the revived app.
    
-* First buildout of same basic function as in e3fd46357085f9a8efde3cd4b94a5a4f211ee2e4 but with
-
-   More parameters for the trip calc.
-
-   Starter for the domain model.
+* Starts with Expo version  same functionilty as in e3fd46357085f9a8efde3cd4b94a5a4f211ee2e4 
 
 * Expo Only and Full Native Android/iOS code levels. 
 
-  
-   For various purposes, there will be an expo only code level and a full version.
+   Expo only version will be maintained as starter for the domain model.
    Mostly so that developers can use the simplest version without Google/Apple dev kits.
+
+   The full react native code level will support the backend function and other enhancements.
 
    There will be several iterations of the client before
    ...   
