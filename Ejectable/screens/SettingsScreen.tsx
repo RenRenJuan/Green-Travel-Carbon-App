@@ -3,6 +3,7 @@ import { StyleSheet, Switch, TextInput } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { useState } from 'react';
 import SettingsScreenInfo from '../components/SettingsScreenInfo';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function SettingsScreen() {
   const [text, onChangeText] = React.useState("Useless Text");
@@ -14,23 +15,23 @@ export default function SettingsScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Model Settings</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <SettingsScreenInfo />
-      <Switch
-        
+       <SettingsScreenInfo />
+       <Switch
         trackColor={{ false: "#767577", true: "#81b0ff" }}
         thumbColor={true ? "#f5dd4b" : "#f4f3f4"}
         ios_backgroundColor="#3e3e3e"
         onValueChange={toggleUnits}
         value={isKM}
-      />
-      <TextInput
+       />
+       <TextInput
         style={styles.input}
         onChangeText={onChangeNumber}
         value={number}
+        defaultValue="0.66666"
+        returnKeyType={'done'}
         placeholder="CO2 Per km/mi"
         keyboardType="numeric"
-      />
-   
+       />     
     </View>
   );
 }
