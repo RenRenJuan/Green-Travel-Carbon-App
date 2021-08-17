@@ -1,7 +1,7 @@
-GT2 Personal Carbon Calculator
+greentravel.app
 ==============================
 
-  Features for the revived app.
+  Originally Green Travel Carbon Calculator
    
 * Starts with Expo version  same functionilty as in e3fd46357085f9a8efde3cd4b94a5a4f211ee2e4 
   except a complete and x-platform app.
