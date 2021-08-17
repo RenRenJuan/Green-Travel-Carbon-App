@@ -3,10 +3,10 @@
 
   Originally Green Travel Carbon Calculator
    
-* Starts with Expo version  same functionilty as in e3fd46357085f9a8efde3cd4b94a5a4f211ee2e4 
+- Starts with Expo version  same functionilty as in e3fd46357085f9a8efde3cd4b94a5a4f211ee2e4 
   except a complete and x-platform app.
 
-* Expo Only and Full Native Android/iOS code levels. 
+- Expo Only and Full Native Android/iOS code levels. 
 
    Expo only version (in Ejectable) will be maintained as starter for the domain model.
    Mostly so that developers can use the simplest version without Google/Apple dev kits.
@@ -16,12 +16,15 @@
    There will be several iterations of it before
    ...   
 
-* Backend service available as in app purchase
+- Ejected client with enhanced service available as in app purchase
 
-   With typical cloud enhancements such as more context than a single trip, group aggregation, etc.
-   The client itself with the basic trip model will remain free.
+  - more context than a single trip, group aggregation, etc.
+  - developer support via the common mechanism for same in my domains
+  
+ The ejected client itself with the basic trip model will be kept in sync with 
+ what is actually on google/apple.
    
-* FOSS as before
+- FOSS as before
 
    Up to proprietary systems support in my other domains, this will remain fully open source.
    Initially it will be more of a vehicle for my development offerings but the intent is 
