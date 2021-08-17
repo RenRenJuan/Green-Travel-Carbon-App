@@ -4,6 +4,7 @@ GT2 Personal Carbon Calculator
   Features for the revived app.
    
 * Starts with Expo version  same functionilty as in e3fd46357085f9a8efde3cd4b94a5a4f211ee2e4 
+  except a complete and x-platform app.
 
 * Expo Only and Full Native Android/iOS code levels. 
 
