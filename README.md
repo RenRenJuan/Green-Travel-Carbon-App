@@ -1,4 +1,4 @@
-greentravel.app
+[greentravel.app](https://greentravel.app)
 ==============================
 
   Originally Green Travel Carbon Calculator
@@ -11,9 +11,9 @@ greentravel.app
    Expo only version (in Ejectable) will be maintained as starter for the domain model.
    Mostly so that developers can use the simplest version without Google/Apple dev kits.
 
-   The full react native code level will support the backend function and other enhancements.
+   The expo client will remain standalone, not support backend function and other enhancements.
 
-   There will be several iterations of the client before
+   There will be several iterations of it before
    ...   
 
 * Backend service available as in app purchase
