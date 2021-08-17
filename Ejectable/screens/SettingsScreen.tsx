@@ -26,11 +26,11 @@ export default function SettingsScreen() {
        <View style={styles.controls} >
        <Button
          title="Jet"
-         onPress={() => Alert.alert('Jet Fuel Selected')}
+         onPress={() => Alert.alert('Jet Fuel Selected \n 285 g / passenger / km')}
        />
        <Button
        title="Gasoline"
-       onPress={() => Alert.alert('Gasoline Selected')}
+       onPress={() => Alert.alert('Gasoline Selected \n 255 g for driver \n only passenger / km')}
        />  
        <Button
        title="Food"

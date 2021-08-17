@@ -10,9 +10,10 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import SplashScreen from '../screens/SplashScreen';
 import TripScreen from '../screens/TripScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import { BottomTabParamList, TripParamList, SettingsParamList } from '../types';
+import { SplashParamList, BottomTabParamList, TripParamList, SettingsParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -21,11 +22,11 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Trip"
+      initialRouteName="Splash"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="Trip"
-        component={TripNavigator}
+        name="Home"
+        component={SplashNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
@@ -33,6 +34,13 @@ export default function BottomTabNavigator() {
       <BottomTab.Screen
         name="Settings"
         component={SettingsNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Trip"
+        component={TripNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
@@ -49,7 +57,20 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
+const SplashStack = createStackNavigator<TripParamList>();
 const TripStack = createStackNavigator<TripParamList>();
+
+function SplashNavigator() {
+  return (
+    <SplashStack.Navigator>
+      <SplashStack.Screen
+        name="SplashScreen"
+        component={SplashScreen}
+        options={{ headerTitle: 'Green Travel' }}
+      />
+    </SplashStack.Navigator>
+  );
+}
 
 function TripNavigator() {
   return (

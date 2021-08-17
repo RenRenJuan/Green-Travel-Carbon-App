@@ -20,3 +20,7 @@ export type TripParamList = {
 export type SettingsParamList = {
   SettingsScreen: undefined;
 };
+
+export type SplashParamList = {
+  SplashScreen: undefined;
+};

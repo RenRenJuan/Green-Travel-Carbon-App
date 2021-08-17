@@ -12,14 +12,19 @@ export default {
     screens: {
       Root: {
         screens: {
+          Splash: {
+            screens: {
+              SplashScreen: 'one',
+            },
+          },
           Trip: {
             screens: {
-              TripScreen: 'one',
+              TripScreen: 'two',
             },
           },
           Settings: {
             screens: {
-              SettingsScreen: 'two',
+              SettingsScreen: 'three',
             },
           },
         },
