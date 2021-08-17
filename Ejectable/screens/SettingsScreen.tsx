@@ -1,59 +1,82 @@
 import * as React from 'react';
-import { StyleSheet, Switch, TextInput } from 'react-native';
+import { Alert, Button, StyleSheet, Switch, TextInput } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { useState } from 'react';
-import SettingsScreenInfo from '../components/SettingsScreenInfo';
+import ScreenInfo from '../components/ScreenInfo';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function SettingsScreen() {
-  const [text, onChangeText] = React.useState("Useless Text");
-  const [number, onChangeNumber] = React.useState(null);
-  const [isKM, setIsKM] = useState(false);
-  const toggleUnits = () => setIsKM(previousState => !previousState);
+  const [number, onChangeNumber] = React.useState("");
+  const [isKM, setMiles] = useState(false);
+  const toggleUnits = () => setMiles(previousState => !previousState);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Model Settings</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-       <SettingsScreenInfo />
+       <ScreenInfo />
        <Switch
+        style={styles.switch}
         trackColor={{ false: "#767577", true: "#81b0ff" }}
         thumbColor={true ? "#f5dd4b" : "#f4f3f4"}
         ios_backgroundColor="#3e3e3e"
         onValueChange={toggleUnits}
         value={isKM}
        />
-       <TextInput
+       <View style={styles.controls} >
+       <Button
+         title="Jet"
+         onPress={() => Alert.alert('Jet Fuel Selected')}
+       />
+       <Button
+       title="Gasoline"
+       onPress={() => Alert.alert('Gasoline Selected')}
+       />  
+       <Button
+       title="Food"
+       onPress={() => Alert.alert('Savings vs Gasoline Selected')}
+       />
+       </View>
+       <TextInput   
         style={styles.input}
+        returnKeyType={'done'}
         onChangeText={onChangeNumber}
         value={number}
-        defaultValue="0.66666"
-        returnKeyType={'done'}
-        placeholder="CO2 Per km/mi"
+        placeholder="0.67"
         keyboardType="numeric"
-       />     
+       />      
     </View>
   );
 }
 
+
 const styles = StyleSheet.create({
+  switch: {
+    marginVertical: 20,
+  },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  controls: {
+    marginVertical: 20,
+    width: "80%",
+    flexDirection: 'row',
+    justifyContent: "space-between",
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: 10,
     height: 1,
     width: '80%',
   },
   input: {
     height: 40,
-    margin: 12,
+    margin: 30,
     borderWidth: 1,
     padding: 10,
   },

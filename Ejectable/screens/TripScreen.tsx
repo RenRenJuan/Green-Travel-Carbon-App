@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { Button, StyleSheet, Alert } from 'react-native';
 import { Text, View } from '../components/Themed';
+import { GT2Service } from '../GT2Service.js';
+import { ScreenInfo2 } from '../components/ScreenInfo';
 
 export default function TripScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Trip Control</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-     
+      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />  
+      <ScreenInfo2 />
       <View style={styles.controls} >
       <Button
         title="Start"
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: 10,
     height: 1,
     width: '80%',
   },
