@@ -44,4 +44,9 @@ GT2 Personal Carbon Calculator
   matching what was on play since c. 4709 (after cloning current master).
 
   As of August 4719 it still loads in Android Studio, and it will be preserved in the repo.
+
+  Note: going over the sources there are references to a PDF. This refers to the origins of the project.
+  An individual had taken on the task of making an application for NRDC Boston and got stuck on the GPS.
+  The PDF was what that app was supposed to do. I completed it up doing the basic thing it was supposed
+  to do so.
    
