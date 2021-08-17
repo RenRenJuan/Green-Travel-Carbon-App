@@ -21,8 +21,8 @@
   - more context than a single trip, group aggregation, etc.
   - developer support via the common mechanism for same in my domains
   
- The ejected client itself with the basic trip model will be kept in sync with 
- what is actually on google/apple.
+  The ejected client itself with the basic trip model will be kept in sync with 
+  what is actually on google/apple.
    
 - FOSS as before
 
