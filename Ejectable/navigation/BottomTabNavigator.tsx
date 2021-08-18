@@ -7,15 +7,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import SplashScreen from '../screens/SplashScreen';
-import TripScreen from '../screens/TripScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import TripScreen from '../screens/TripScreen';
 import { SplashParamList, BottomTabParamList, TripParamList, SettingsParamList } from '../types';
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+export const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
@@ -25,7 +24,7 @@ export default function BottomTabNavigator() {
       initialRouteName="Splash"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="Home"
+        name="Splash"
         component={SplashNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
@@ -57,8 +56,7 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const SplashStack = createStackNavigator<TripParamList>();
-const TripStack = createStackNavigator<TripParamList>();
+const SplashStack = createStackNavigator<SplashParamList>();
 
 function SplashNavigator() {
   return (
@@ -71,6 +69,8 @@ function SplashNavigator() {
     </SplashStack.Navigator>
   );
 }
+
+const TripStack = createStackNavigator<TripParamList>();
 
 function TripNavigator() {
   return (

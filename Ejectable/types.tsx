@@ -9,6 +9,7 @@ export type RootStackParamList = {
 };
 
 export type BottomTabParamList = {
+  Splash: undefined;
   Trip: undefined;
   Settings: undefined;
 };

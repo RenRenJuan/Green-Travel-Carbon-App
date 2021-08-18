@@ -38,7 +38,13 @@ export function ScreenInfo3() {
           style={styles.settingsText}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
-          Green Travel Carbon Calculator v. 2                  
+          Green Travel Carbon Calculator v. 2
+        </Text>  
+        <Text
+          style={styles.versionText}
+          lightColor="rgba(0,0,0,0.8)"
+          darkColor="rgba(255,255,255,0.8)">
+          expo version
         </Text>  
     </View>
   );
@@ -54,5 +60,8 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: 'center',
   },
-
+  versionText: {
+    fontSize: 8,
+    textAlign: 'center',
+  },
 });

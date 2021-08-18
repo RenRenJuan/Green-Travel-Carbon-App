@@ -13,6 +13,9 @@
 
    The expo client will remain standalone, not support backend function and other enhancements.
 
+     Note: the initial expo app on App Store/Play will be replaced by the full react native version
+           and a binaries for the expo client will be downloadable from greentravel.app .
+
    There will be several iterations of it before
    ...   
 
