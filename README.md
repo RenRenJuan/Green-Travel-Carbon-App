@@ -6,7 +6,7 @@
 - Starts with Expo version  same functionilty as in e3fd46357085f9a8efde3cd4b94a5a4f211ee2e4 
   except completed and x-platform app.
 
-- Expo Only and Full Native Android/iOS code levels. 
+- Expo Only and Native Android/iOS code levels. 
 
    Expo only version (in Ejectable) will be maintained as starter for the domain model.
    Mostly so that developers can use the simplest version without Google/Apple dev kits.
