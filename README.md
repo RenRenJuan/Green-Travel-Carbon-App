@@ -19,14 +19,14 @@
    There will be several iterations of it before
    ...   
 
-- Native clients with enhanced service available as in app purchase
+- Native clients with cloud service available as in app purchase
 
   - more context than a single trip, group aggregation, etc.
   - developer support via the common mechanism for same in my domains
   
   Continuity with ejected expo client will be maintained at the domain model level but there
   is no commitment to expo in the production client which is what will be on play and app store
-  as GT2 matures.
+  replacing the expo client as GT2 matures.
    
 - FOSS as before
 
