@@ -14,17 +14,17 @@ export default {
         screens: {
           Splash: {
             screens: {
-              SplashScreen: 'one',
+              SplashScreen: 'home',
             },
           },
           Trip: {
             screens: {
-              TripScreen: 'two',
+              TripScreen: 'trip',
             },
           },
           Settings: {
             screens: {
-              SettingsScreen: 'three',
+              SettingsScreen: 'settings',
             },
           },
         },

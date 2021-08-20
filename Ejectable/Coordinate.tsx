@@ -1,77 +1,27 @@
+/**  Class for handling coordinates  original by Linus Helgesson   */
+ export class Coordinate {
 
+      mLatitude:number    = 0.0;
+      mLongitude:number   = 0.0;
+      mResults:any        = [0, 0];
+      PI_OVER_180:number  = 0.017453292519943295769236907684886;
+      EARTH_RADIUS:number = 6371009;
 
-/* Generated from Java with JSweet 3.0.0 - http://www.jsweet.org */
-/**
- * Constructor taking a longitude and a latitude
- *
- * @param {number} longitude
- * @param {number} latitude
- * @class
- * @author Linus Helgesson
- */
- var Coordinate = /** @class */ (function () {
-    function Coordinate(longitude, latitude) {
-        if (((typeof longitude === 'number') || longitude === null) && ((typeof latitude === 'number') || latitude === null)) {
-            var __args = arguments;
-            this.mLongitude = 0;
-            this.mLatitude = 0;
-            this.mResults = [0, 0];
+    constructor (longitude:number, latitude:number) {
             this.mLongitude = longitude;
             this.mLatitude = latitude;
-        }
-        else if (longitude === undefined && latitude === undefined) {
-            var __args = arguments;
-            this.mLongitude = 0;
-            this.mLatitude = 0;
-            this.mResults = [0, 0];
-        }
-        else
-            throw new Error('invalid overload');
     }
+    getLongitude()                 {  return this.mLongitude;  }
+    setLongitude(longitude:number) {  this.mLongitude = longitude;  }
+    getLatitude()                  {  return this.mLatitude;  }
+    setLatitude(latitude:number)   {  this.mLatitude = latitude;  }
     /**
-     * Get the longitude part of this coordinate
-     *
-     * @return {number} The longitude part of this coordinate
-     */
-    Coordinate.prototype.getLongitude = function () {
-        return this.mLongitude;
-    };
-    /**
-     * Set the longitude part of this coordinate
-     *
-     * @param {number} longitude The longitude part of this coordinate
-     */
-    Coordinate.prototype.setLongitude = function (longitude) {
-        this.mLongitude = longitude;
-    };
-    /**
-     * Get the latitude part of this coordinate
-     *
-     * @return {number} The latitude part of this coordinate
-     */
-    Coordinate.prototype.getLatitude = function () {
-        return this.mLatitude;
-    };
-    /**
-     * Set the latitude part of this coordinate
-     *
-     * @param {number} latitude The latitude part of this coordinate
-     */
-    Coordinate.prototype.setLatitude = function (latitude) {
-        this.mLatitude = latitude;
-    };
-    /**
-     * Calculates a bounding box of a certain size arund a coordinate. This is mainly used for a quick check
-     * in the database for cameras that are close to a coordinate. This function takes a size ion meters as
+     * Calculates a bounding box of a certain size arund a coordinate.This function takes a size in meters as
      * a parameter and returns an array of two Coordinate objects. The first Coordinate is the upper left corner
-     * while the last coordinate is the bottom right corner.
-     *
-     * @param {number} side The length of the square side in meters
-     *
-     * @return {Coordinate[]} Two cordinates where the first is smaller than the second.
+     * while the last coordinate is the bottom right corner.er than the second.
      */
-    Coordinate.prototype.getBoundingBox = function (side: number) {
-        var ret = [null, null];
+    getBoundingBox(side: number) {
+        var ret:any = [Coordinate, Coordinate];
 
         var degLatM:number , degLatM:number, degLongM:number, deltaLat:number, deltaLong:number;
 
@@ -87,18 +37,12 @@
     };
     /**
      * Calculates the distance between two Coordinate objects using the Spherical law of cosines found at:
-     *
-     * http://www.movable-type.co.uk/scripts/latlong.html
-     *
-     * @param coordinate The coordinate to measure the distance to.
-     * @return {number} the distance in meters
-     * @param {Coordinate} dest
      */
-    Coordinate.prototype.distanceTo = function (dest) {
-        Coordinate.computeDistanceAndBearing(this.mLatitude, this.mLongitude, dest.getLatitude(), dest.getLongitude(), this.mResults);
+    distanceTo(dest:Coordinate) {
+        this.computeDistanceAndBearing(this.mLatitude, this.mLongitude, dest.getLatitude(), dest.getLongitude(), this.mResults);
         return this.mResults[0];
     };
-    /*private*/ Coordinate.computeDistanceAndBearing = function (lat1, lon1, lat2, lon2, results) {
+    computeDistanceAndBearing(lat1:number, lon1:number, lat2:number, lon2:number, results:any) {
         var MAXITERS = 20;
         lat1 *= Math.PI / 180.0;
         lat2 *= Math.PI / 180.0;
@@ -168,8 +112,8 @@
             }
         }
     };
-    Coordinate.PI_OVER_180 = 0.017453292;
-    Coordinate.EARTH_RADIUS = 6371009;
-    return Coordinate;
-}());
-Coordinate["__class"] = "Coordinate";
+
+}
+
+
+

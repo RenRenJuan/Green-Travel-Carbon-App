@@ -1,14 +1,9 @@
 import * as React from 'react';
-import { Component } from 'react';
 import { Button, StyleSheet, Alert } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { ScreenInfo2 } from '../components/ScreenInfo';
-import { geocodeAsync } from 'expo-location';
-import * as GT2 from '../App';
-import * as Nav from '../navigation/BottomTabNavigator';
-import Navigation from '../navigation';
-
-var elapsed:number, lat:number, long:number, ds:number, v:number;
+import { thisTrip } from '../GT2';
+import { TripStack } from '../navigation/BottomTabNavigator';
 
 const styles = StyleSheet.create({
   tripText: {
@@ -43,16 +38,8 @@ const styles = StyleSheet.create({
 
 function startTrip() {
 
-  GT2.toggleTripInProgress();
-
-  elapsed = 0.0;
-  lat     = 0.0;
-  long    = 0.0;
-  ds      = 0.0;
-  v       = 0.0;
-  
+  thisTrip.start();
   Alert.alert('Trip Started');
-  
 
 }
 
@@ -63,13 +50,14 @@ function pauseTrip() {
 
 function endTrip() {
 
-  GT2.toggleTripInProgress();
+  thisTrip.end();
   Alert.alert('Trip Ended');
 
 }
 
 export default function TripScreen() {
-  if (!GT2.tripInProgress)
+  
+  if (!thisTrip.inProgress)
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Trip Control</Text>
@@ -112,9 +100,9 @@ export default function TripScreen() {
       </View>
       <View>
         <Text style={styles.tripText}>
-          {'Elapsed:    '}{elapsed}{'\n'}
-          {'Geo:        '}{lat}{long}{'\n'}
-          {'Vector:     '}{ds}{v}{'\n'}
+          {'Elapsed -   '}{thisTrip.elapsed}{' seconds\n'}
+          {'Geo:            '}{'lat: '}{thisTrip.loc.mLatitude}{' long: '}{thisTrip.loc.mLatitude}{'\n'}
+          {'Vector:       '}{'distance: '}{thisTrip.distance}{' velocity: '}{thisTrip.v}{'\n'}
         </Text>
       </View>
     </View>

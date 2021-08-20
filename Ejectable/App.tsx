@@ -1,16 +1,15 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { Platform, Text, View, Switch, StyleSheet } from 'react-native';
+import { Text } from 'react-native';
 import * as Location from 'expo-location';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
-
-export var debug:boolean = false;
+import { GT2 } from './GT2';
+export var debug:boolean = true;
 export var expoGeoState:any;
-export var tripInProgress:boolean = true;
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -60,5 +59,3 @@ export default function App() {
     );
   }
 }
-
-export function toggleTripInProgress() {tripInProgress = !tripInProgress;}

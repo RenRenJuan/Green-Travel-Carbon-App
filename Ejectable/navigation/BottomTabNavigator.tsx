@@ -70,7 +70,7 @@ function SplashNavigator() {
   );
 }
 
-const TripStack = createStackNavigator<TripParamList>();
+export const TripStack = createStackNavigator<TripParamList>();
 
 function TripNavigator() {
   return (
