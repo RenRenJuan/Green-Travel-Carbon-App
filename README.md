@@ -40,7 +40,7 @@
 2011 Stub App
 =============
 
-  Original was just Android and a proof of GPS. It still works on older Android as of 2021-08-16 but 
+  Original was just Android (4) and a proof of GPS. It still works on older Android as of 2021-08-16 but 
   will not work with Android 10 due to the app menu button and its backfill the overflow menu 
   button being completely removed. The latter is the three  dots on the nav bar. It was
   removed but was still accessible up to 9 either standardly or by a gesture, If you can't get to this
