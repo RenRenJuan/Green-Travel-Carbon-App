@@ -19,13 +19,14 @@
    There will be several iterations of it before
    ...   
 
-- Ejected client with enhanced service available as in app purchase
+- Native clients with enhanced service available as in app purchase
 
   - more context than a single trip, group aggregation, etc.
   - developer support via the common mechanism for same in my domains
   
-  The ejected client itself with the basic trip model will be kept in sync with 
-  what is actually on google/apple.
+  Continuity with ejected expo client will be maintained at the domain model level but there
+  is no commitment to expo in the production client which is what will be on play and app store
+  as GT2 matures.
    
 - FOSS as before
 
