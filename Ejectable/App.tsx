@@ -8,7 +8,7 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import { GT2 } from './GT2';
-export var debug:boolean = true;
+export var debug:boolean = false;
 export var expoGeoState:any;
 
 export default function App() {

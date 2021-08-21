@@ -33,9 +33,9 @@ export function ScreenInfo2() {
 
 export function ScreenInfo3() {
   return (
-    <View style={styles.settingsContainer}>
+    <View style={styles.splashContainer}>
         <Text
-          style={styles.settingsText}
+          style={styles.titleText}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
           Green Travel Carbon Calculator v. 2
@@ -51,9 +51,20 @@ export function ScreenInfo3() {
 }
 
 const styles = StyleSheet.create({
+  splashContainer: {
+    marginHorizontal: 50,
+    marginVertical: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+  },
   settingsContainer: {
     marginHorizontal: 50,
     marginVertical: 20,
+  },
+  titleText: {
+    color: 'white',
+    fontSize: 17,
+    lineHeight: 24,
+    textAlign: 'center',
   },
   settingsText: {
     fontSize: 17,
@@ -61,7 +72,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   versionText: {
-    fontSize: 8,
+    color: 'yellow',
+    fontSize: 10,
     textAlign: 'center',
   },
 });

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Coordinate } from "./Coordinate";
 import { Text, View } from './components/Themed';
 import { StyleSheet } from 'react-native';
+import { useState, useEffect } from 'react';
 
 const styles = StyleSheet.create({
     tripText: {
@@ -36,14 +37,15 @@ class Chronometer {
 
 export class GT2 {
 
-           displayInterval:any   = null;
+	       loc:Coordinate        = new Coordinate(0,0);
            clock:Chronometer     = new Chronometer();
            startPoint:Coordinate = new Coordinate(0,0);
+
+           displayInterval:any   = null;
     public distance:number       = 0.0;
            co2Rate:number        = 0.0;   
 	       currTime:number       = 0;
            lastTime:number       = 0;
-	       loc:Coordinate        = new Coordinate(0,0);
 	public v:number              = 0;
     public inProgress:boolean    = false;
     public paused:boolean        = false;
@@ -93,6 +95,8 @@ export class GT2 {
    
 
     public TripDisplay() {
+
+       var tripPanel:string = "";
 
     if (!thisTrip.inProgress) 
     return ( 
