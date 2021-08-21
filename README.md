@@ -18,6 +18,11 @@
   - 2.2.0 Maintain trip histories in cloud
   - 2.3.0 Group Aggregation and Reporting
   - 2.4.0 Developer Support
+
+  A base completely free client with the core trip model will remain free and it's sources will 
+  be here.
+ 
+  Feature sets in 2.2 and later will be available to [entitled users](https://eg.meansofproduction.biz/index.php/AKPERSON>, with entitlements vended in app.
    
 
 2011 Stub App
