@@ -14,7 +14,8 @@
 - Roadmap for regular production Personal Carbon Accounting domain
 
   - 2.1.0 Regular React Native Android and iOS clients
-  - 2.2.0 Maintain trip histories in cloud
+  - 2.2.0 WatchOS version
+  - 2.2.1 Maintain trip histories in cloud
   - 2.3.0 Group Aggregation and Reporting
   - 2.4.0 Developer Support
 
