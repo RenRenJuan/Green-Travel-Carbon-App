@@ -8,7 +8,8 @@
 
   The first replacement on play and first version on app store will be this expo build.
 
-  This version will be maintained but the binaries will be available [here](https://sameboat.live/sb-app).
+  This version will be maintained but the binaries will be available [here](https://sameboat.live/sb-app) 
+  after 2.1 replaces it on the app stores.
 
 ## 2.n.m
 
