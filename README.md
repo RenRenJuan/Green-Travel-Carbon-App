@@ -3,7 +3,7 @@
 
 ## 2.0.0
    
-- An Expo version of exactly the same functionilty as the original 2011 app slightly enhanced
+- An Expo version of exactly the same functionality as the original 2011 app slightly enhanced
   except it's a completed and x-platform app.
 
   The first replacement on play and first version on app store will be this expo build.
