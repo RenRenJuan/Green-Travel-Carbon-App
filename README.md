@@ -1,42 +1,24 @@
-[greentravel.app](https://greentravel.app)
-==============================
+# GT2 [greentravel.app](https://greentravel.app)
+<span style="font-size: 12px">Originally Green Travel Carbon Calculator</span>
 
-  Originally Green Travel Carbon Calculator
+## 2.0.0
    
-- Starts with Expo version  same functionilty as in e3fd46357085f9a8efde3cd4b94a5a4f211ee2e4 
-  except completed and x-platform app.
+- An Expo version of exactly the same functionilty as the original 2011 app slightly enhanced
+  except it's a completed and x-platform app.
 
-- Expo Only and Native Android/iOS code levels. 
+  The first replacement on play and first version on app store will be this expo build.
 
-   Expo only version (in Ejectable) will be maintained as starter for the domain model.
-   Mostly so that developers can use the simplest version without Google/Apple dev kits.
+  This version will be maintained but the binaries will be available [here](https://sameboat.live/sb-app).
 
-   The expo client will remain standalone, not support backend function and other enhancements.
+## 2.n.m
 
->     Note: the initial expo app on App Store/Play will be replaced by the full react native version
->           and binaries for the current expo client will be downloadable from greentravel.app .
+- Roadmap for regular production Personal Carbon Accounting domain
 
-   There will be several iterations of it before
-   ...   
-
-- Native clients with cloud service available as in app purchase
-
-  - more context than a single trip, group aggregation, etc.
-  - developer support via the common mechanism for same in my domains
-  
-  Continuity with ejected expo client will be maintained at the domain model level but there
-  is no commitment to expo in the production client which is what will be on play and app store
-  replacing the expo client as GT2 matures.
+  - 2.1.0 Regular React Native Android and iOS clients
+  - 2.2.0 Maintain trip histories in cloud
+  - 2.3.0 Group Aggregation and Reporting
+  - 2.4.0 Developer Support
    
-- FOSS as before
-
-   Up to proprietary systems support in my other domains, this will remain fully open source.
-   Initially it will be more of a vehicle for my development offerings but the intent is 
-   develop a full featured Personal Carbon domain.
-
-   All of the client code will be here, the backend code will be open source in 
-   git.meansofproduction.biz accessible as with other sources in my domain space.
-
 
 2011 Stub App
 =============
