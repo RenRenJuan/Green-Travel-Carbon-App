@@ -17,7 +17,7 @@
   - 2.2.0 WatchOS version
   - 2.2.1 Maintain trip histories in cloud
   - 2.3.0 Reporting
-  - 2.4.0 Group Aggregation and Reporting
+  - 2.4.0 Group Aggregation 
 
   A base completely free client with the core trip model will remain free and it's sources will 
   be here.
