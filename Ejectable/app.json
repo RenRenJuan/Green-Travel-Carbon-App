@@ -3,7 +3,7 @@
     "name": "Green Travel Carbon Calculator",
     "slug": "Ejectable",
     "version": "2.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",

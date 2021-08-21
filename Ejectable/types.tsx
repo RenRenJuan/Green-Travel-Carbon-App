@@ -9,7 +9,7 @@ export type RootStackParamList = {
 };
 
 export type BottomTabParamList = {
-  Splash: undefined;
+  Home: undefined;
   Trip: undefined;
   Settings: undefined;
 };
@@ -22,6 +22,6 @@ export type SettingsParamList = {
   SettingsScreen: undefined;
 };
 
-export type SplashParamList = {
-  SplashScreen: undefined;
+export type HomeParamList = {
+  HomeScreen: undefined;
 };

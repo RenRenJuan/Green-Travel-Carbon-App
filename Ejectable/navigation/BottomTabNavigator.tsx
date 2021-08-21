@@ -9,10 +9,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import SplashScreen from '../screens/SplashScreen';
+import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import TripScreen from '../screens/TripScreen';
-import { SplashParamList, BottomTabParamList, TripParamList, SettingsParamList } from '../types';
+import { HomeParamList, BottomTabParamList, TripParamList, SettingsParamList } from '../types';
 
 export const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -21,11 +21,11 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Splash"
+      initialRouteName="Home"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="Splash"
-        component={SplashNavigator}
+        name="Home"
+        component={HomeNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
@@ -56,17 +56,17 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const SplashStack = createStackNavigator<SplashParamList>();
+const HomeStack = createStackNavigator<HomeParamList>();
 
-function SplashNavigator() {
+function HomeNavigator() {
   return (
-    <SplashStack.Navigator>
-      <SplashStack.Screen
-        name="SplashScreen"
-        component={SplashScreen}
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
         options={{ headerTitle: 'Green Travel' }}
       />
-    </SplashStack.Navigator>
+    </HomeStack.Navigator>
   );
 }
 

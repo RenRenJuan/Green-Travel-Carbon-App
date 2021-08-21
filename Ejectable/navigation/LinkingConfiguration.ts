@@ -12,9 +12,9 @@ export default {
     screens: {
       Root: {
         screens: {
-          Splash: {
+          Home: {
             screens: {
-              SplashScreen: 'home',
+              HomeScreen: 'home',
             },
           },
           Trip: {

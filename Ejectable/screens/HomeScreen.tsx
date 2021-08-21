@@ -5,7 +5,7 @@ import { ScreenInfo3 } from '../components/ScreenInfo';
 
 const image = { uri: "https://meansofproduction.biz/images/GREENT.jpg" };
 
-export default function SplashScreen() {
+export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
