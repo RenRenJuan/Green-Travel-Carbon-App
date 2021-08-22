@@ -4,12 +4,14 @@ import React, { useState, useEffect } from 'react';
 import { Text } from 'react-native';
 import * as Location from 'expo-location';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
-import { GT2 } from './GT2';
+
 export var debug:boolean = false;
-export var expoGeoState:any;
+export var lastLoc:any;
+       var expoGeoState:any;
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -36,6 +38,7 @@ export default function App() {
   if (errorMsg) {
     expoGeoState = errorMsg;
   } else if (location) {
+    lastLoc      = location;
     expoGeoState = JSON.stringify(location);
   }
 

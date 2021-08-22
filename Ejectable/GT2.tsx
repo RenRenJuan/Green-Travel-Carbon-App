@@ -14,6 +14,9 @@ const styles = StyleSheet.create({
      fontWeight: 'bold',
     }});
 
+var   lastLoc:any      = null; 
+const heartbeat:number = 500;   
+
 class Chronometer {
 
     public display:string = "";
@@ -25,12 +28,12 @@ class Chronometer {
                     hours   = this.clock < 3600 ? 0 : (this.clock / 3600);
                     minutes = this.clock < 60 ? 0 : (this.clock - (hours * 3600)) / 60;
                     seconds = this.clock % 60;
-                    this.display = hours + ":" + minutes + ":" + seconds; 
+                    this.display = hours + ":" + minutes + ":" + seconds;                   
                    }           
     public start() { this.clock = 0;
-                     this.intervalID = setInterval(this.tick, 1000);                     
+                     this.intervalID = setInterval(this.tick, heartbeat);                     
                    }
-    public  resume() { this.intervalID = setInterval(this.tick, 1000); }               
+    public  resume() { this.intervalID = setInterval(this.tick, heartbeat); }               
     public  stop() { clearInterval(this.intervalID); }
 
 }
@@ -51,6 +54,7 @@ export class GT2 {
     public paused:boolean        = false;
     public elapsed:number        = 0.0;
            segments:number       = 1;
+
 
     public reset() {
 
@@ -94,28 +98,16 @@ export class GT2 {
     }
    
 
-    public TripDisplay() {
-
-       var tripPanel:string = "";
-
-    if (!thisTrip.inProgress) 
-    return ( 
-      <View>
-        <Text style={styles.tripText}>
-         {' No trip started yet.\n'}
-        </Text>
-      </View>);
-    else     
-    return (       
-    <View>
-      <Text style={styles.tripText}>
-       {'Elapsed -   '}{this.clock.display}{'\n'}
-       {'Geo:            '}{'lat: '}{this.loc.mLatitude}{' long: '}{this.loc.mLatitude}{'\n'}
-       {'Vector:       '}{'distance: '}{this.distance}{' velocity: '}{this.v}{'\n'}
-      </Text>
-    </View>);
+    public tripDisplay() {
+        
+        return(
+        <View>
+           <Text style={styles.tripText}>
+             {' No trip started yet.\n'}
+           </Text>
+        </View> );
     }
 
 }
-
-export var thisTrip:GT2 = new GT2();
+ 
+export var ThisTrip:GT2 = new GT2();

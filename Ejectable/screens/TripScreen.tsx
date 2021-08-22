@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, StyleSheet, Alert } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { ScreenInfo2 } from '../components/ScreenInfo';
-import { GT2, thisTrip } from '../GT2';
+import { ThisTrip } from '../GT2';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,21 +29,21 @@ const styles = StyleSheet.create({
 
 function startTrip() {
 
-  thisTrip.start();
+  ThisTrip.start();
   Alert.alert('Trip Started');
 
 }
 
 function pauseTrip() {
 
-  thisTrip.pause();
+  ThisTrip.pause();
   Alert.alert('Trip Paused');
 
 }
 
 function endTrip() {
 
-  thisTrip.end();
+  ThisTrip.end();
   Alert.alert('Trip Ended');
 
 }
@@ -69,7 +69,7 @@ export default function TripScreen() {
         onPress={() => endTrip() }
        />    
       </View>
-      < thisTrip.TripDisplay />
+      < ThisTrip.tripDisplay />
     </View>
   );
 

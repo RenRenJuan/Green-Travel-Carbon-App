@@ -42,7 +42,7 @@ export default function SettingsScreen() {
         returnKeyType={'done'}
         onChangeText={onChangeNumber}
         value={number}
-        placeholder="0.67"
+        placeholder="250"
         keyboardType="numeric"
        />      
     </View>

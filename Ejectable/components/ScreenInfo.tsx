@@ -13,7 +13,7 @@ export default function ScreenInfo() {
           style={styles.settingsText}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
-          Switch dark km/ light mi, select fuel used, or manually set CO2 per distance                  
+          Switch dark km/ light mi, select fuel used, or specify CO2 g per distance                  
         </Text>  
     </View>
   );
