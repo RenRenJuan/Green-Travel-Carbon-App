@@ -1,25 +1,26 @@
 import * as React from 'react';
 import { Coordinate } from "./Coordinate";
 import { Text, View } from './components/Themed';
-import { StyleSheet } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import { useState, useEffect } from 'react';
 
 const styles = StyleSheet.create({
     tripText: {
      marginHorizontal: -10,
      marginVertical: 60,
-     textAlign: 'center',
+     textAlign: 'left',
      width: "80%",
      fontSize: 12,
      fontWeight: 'bold',
     }});
 
-var   lastLoc:any      = null; 
-const heartbeat:number = 500;   
+var   lastLoc:any        = null; 
+const heartbeat:number   = 500; 
+const displayBeat:number = 3;  
 
 class Chronometer {
 
-    public display:string = "";
+    public display:string = "00.00.00";
            clock:number   = 0;
            intervalID:any = null;
        
@@ -38,23 +39,34 @@ class Chronometer {
 
 }
 
+  
 export class GT2 {
 
 	       loc:Coordinate        = new Coordinate(0,0);
            clock:Chronometer     = new Chronometer();
            startPoint:Coordinate = new Coordinate(0,0);
 
-           displayInterval:any   = null;
-    public distance:number       = 0.0;
-           co2Rate:number        = 0.0;   
-	       currTime:number       = 0;
-           lastTime:number       = 0;
-	public v:number              = 0;
-    public inProgress:boolean    = false;
-    public paused:boolean        = false;
-    public elapsed:number        = 0.0;
-           segments:number       = 1;
+           displayInterval:number = displayBeat * heartbeat;
+    public distance:number        = 0.0;
+           co2Rate:number         = 0.0;   
+	       currTime:number        = 0;
+           lastTime:number        = 0;
+           z:number               = 0.0;
+	public v:number               = 0.0;
+    public inProgress:boolean     = false;
+    public paused:boolean         = false;
+    public elapsed:number         = 0.0;
+           segments:number        = 0;
+           elevation:number       = 0.0;
 
+           nTrips:number  = 0;
+
+           parseGeoExpo(key:string, value:any) {}
+
+    public deltaLoc(lastFix:any) {
+
+
+    }
 
     public reset() {
 
@@ -75,39 +87,76 @@ export class GT2 {
         
         this.clock.stop();
         this.inProgress = false;
+        this.nTrips++;
     
     }
 
     public pause() {
     
-        this.clock.stop();
-        this.paused = true;
+        if (!this.paused) {
+            this.clock.stop();
+            this.paused = true;
+        } else {
+            this.clock.start();
+            this.paused = false;
+        }
     
-    }
-
-    public resume() {
-
-        this.clock.start();
-        this.paused = false;
     }
 
     public start() {
 
+        this.reset();
         this.clock.start();     
         this.inProgress = true;
     }
    
+    public getTripPanel() : string   {
 
-    public tripDisplay() {
-        
+        if (this.inProgress)
+        return (
+        'Elapsed -    ' + this.clock.display + '\n' +
+        'Geo:             ' + 'lat: ' + this.loc.mLatitude + ' long: ' + this.loc.mLatitude + '\n' +
+        'Vector:        ' + 'distance: ' + this.distance + ' velocity: ' + this.v + '\n' + 
+        'Altitude:     ' + this.elevation + '\n');
+        else return("No trip in progress. " + this.nTrips + " trip(s) completed");
+
+    }
+
+}
+
+export class TripDisplay extends React.Component {
+    
+    constructor(props:any) {
+        super(props);
+        this.state = { seconds: 0 };
+      }
+
+      interval:any;
+
+      tick() {
+        this.setState(state => ({
+          seconds:  1
+        }));
+      }
+    
+      componentDidMount() {
+        this.interval = setInterval(() => this.tick(), Trips.displayInterval);
+      }
+    
+      componentWillUnmount() {
+        clearInterval(this.interval);
+      }
+
+    render() {
+
         return(
         <View>
            <Text style={styles.tripText}>
-             {' No trip started yet.\n'}
+             {Trips.getTripPanel() }
            </Text>
         </View> );
     }
 
 }
  
-export var ThisTrip:GT2 = new GT2();
+export var Trips:GT2 = new GT2();

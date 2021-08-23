@@ -13,7 +13,7 @@ export default function ScreenInfo() {
           style={styles.settingsText}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
-          Switch dark km/ light mi, select fuel used, or specify CO2 g per distance                  
+          {'Switch dark: km, light: mi\nset fuel, or CO2 g per km'}                  
         </Text>  
     </View>
   );
@@ -25,7 +25,7 @@ export function ScreenInfo2() {
           style={styles.settingsText}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
-          Use Pause if fuel burning portion of trip interrupted                  
+          Pause trip if fuel burning interrupted.                
         </Text>  
     </View>
   );

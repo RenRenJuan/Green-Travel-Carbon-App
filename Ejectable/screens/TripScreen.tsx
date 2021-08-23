@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Button, StyleSheet, Alert } from 'react-native';
+import { useState } from 'react';
+import { Alert, Button, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { ScreenInfo2 } from '../components/ScreenInfo';
-import { ThisTrip } from '../GT2';
+import { TripDisplay, Trips } from '../GT2';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,26 +30,35 @@ const styles = StyleSheet.create({
 
 function startTrip() {
 
-  ThisTrip.start();
+  Trips.start();
   Alert.alert('Trip Started');
 
 }
 
 function pauseTrip() {
 
-  ThisTrip.pause();
-  Alert.alert('Trip Paused');
+  if (!Trips.paused) {
+      Alert.alert('Trip Paused');
+      Trips.pause();
+  }
+  else    {
+      Alert.alert('Trip Resumed');
+      Trips.pause();
+  }
 
 }
 
 function endTrip() {
 
-  ThisTrip.end();
+  Trips.end();
   Alert.alert('Trip Ended');
 
 }
 
 export default function TripScreen() {
+
+  const [sButtonText, setSButtonText] = useState("Start"); 
+  const [pButtonText, setPButtonText] = useState("Pause"); 
   
    return (
     <View style={styles.container}>
@@ -57,19 +67,21 @@ export default function TripScreen() {
       <ScreenInfo2 />
       <View style={styles.controls} >
        <Button
-        title="Start"
-        onPress={() => startTrip() }
+        title={sButtonText}
+        onPress={() => {
+          if (!Trips.inProgress) {setSButtonText("End");startTrip();}
+          else {setSButtonText('Start');setPButtonText('Pause');endTrip();}}
+        }
        />
        <Button
-        title="Pause"
-        onPress={() => pauseTrip()}
-       />  
-       <Button
-        title="Stop"
-        onPress={() => endTrip() }
-       />    
+        title={pButtonText}
+        onPress={() => { if (!Trips.inProgress) Alert.alert("No trip in progress!"); else {
+          if (!Trips.paused) {setPButtonText("Resume");pauseTrip();}
+          else {setPButtonText('Pause');pauseTrip();}}}
+        }
+       />
       </View>
-      < ThisTrip.tripDisplay />
+      <TripDisplay></TripDisplay>
     </View>
   );
 

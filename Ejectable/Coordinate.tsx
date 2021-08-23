@@ -1,8 +1,8 @@
 /**  Class for handling coordinates  original by Linus Helgesson   */
  export class Coordinate {
 
-      mLatitude:number    = 0.0;
-      mLongitude:number   = 0.0;
+      public mLatitude:number    = 0.0;
+      public mLongitude:number   = 0.0;
       mResults:any        = [0, 0];
       PI_OVER_180:number  = 0.017453292519943295769236907684886;
       EARTH_RADIUS:number = 6371009;
