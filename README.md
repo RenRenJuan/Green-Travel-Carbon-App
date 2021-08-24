@@ -4,7 +4,7 @@
 ## 2.0.0
    
 - An Expo version of exactly the same functionality as the original 2011 app slightly enhanced
-  except it's a completed and x-platform app.
+  except it's a completed and x-platform app and the overall trip fuel consumption has been corrected.
 
   This first replacement on play and first version on app store using an expo build will be maintained
   but the binaries will be available [here](https://sameboat.live/sb-app) after 2.1 replaces it on the app stores.

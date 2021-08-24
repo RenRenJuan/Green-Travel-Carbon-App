@@ -5,7 +5,10 @@ import { ScreenInfo3 } from '../components/ScreenInfo';
 
 const image = { uri: "https://meansofproduction.biz/images/GREENT.jpg" };
 
-export default function HomeScreen() {
+export var nav:any = null;
+
+export default function HomeScreen(navigation:any) {
+  nav = navigation;
   return (
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>

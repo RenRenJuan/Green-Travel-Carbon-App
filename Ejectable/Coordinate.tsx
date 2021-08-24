@@ -3,13 +3,13 @@
 
       public mLatitude:number    = 0.0;
       public mLongitude:number   = 0.0;
-      mResults:any        = [0, 0];
-      PI_OVER_180:number  = 0.017453292519943295769236907684886;
-      EARTH_RADIUS:number = 6371009;
+      mResults:any               = [0, 0];
+      PI_OVER_180:number         = 0.017453292519943295769236907684886;
+      EARTH_RADIUS:number        = 6371009;
 
     constructor (longitude:number, latitude:number) {
             this.mLongitude = longitude;
-            this.mLatitude = latitude;
+            this.mLatitude  = latitude;
     }
     getLongitude()                 {  return this.mLongitude;  }
     setLongitude(longitude:number) {  this.mLongitude = longitude;  }

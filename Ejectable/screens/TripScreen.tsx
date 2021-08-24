@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { Alert, Button, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { ScreenInfo2 } from '../components/ScreenInfo';
-import { TripDisplay, Trips } from '../GT2';
+import  EndScreenInfo  from '../components/EndScreenInfo';
+import { locEnabled, getEndPending, toggleEndPending, TripDisplay, Trips } from '../GT2';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,8 +31,12 @@ const styles = StyleSheet.create({
 
 function startTrip() {
 
+  if (!locEnabled ) {
+    Alert.alert("You must enable both foreground\n and background location tracking.");
+    return;
+  }
+
   Trips.start();
-  Alert.alert('Trip Started');
 
 }
 
@@ -48,18 +53,14 @@ function pauseTrip() {
 
 }
 
-function endTrip() {
+function endTrip() {  Trips.end(); }
 
-  Trips.end();
-  Alert.alert('Trip Ended');
-
-}
-
-export default function TripScreen() {
+export default function TripScreen( navigation:any ) {
 
   const [sButtonText, setSButtonText] = useState("Start"); 
-  const [pButtonText, setPButtonText] = useState("Pause"); 
+  const [pButtonText, setPButtonText] = useState("Pause");
   
+  if (!getEndPending()) 
    return (
     <View style={styles.container}>
       <Text style={styles.title}>Trip Control</Text>
@@ -69,8 +70,8 @@ export default function TripScreen() {
        <Button
         title={sButtonText}
         onPress={() => {
-          if (!Trips.inProgress) {setSButtonText("End");startTrip();}
-          else {setSButtonText('Start');setPButtonText('Pause');endTrip();}}
+          if (!Trips.inProgress) {setSButtonText("End");startTrip();setPButtonText('Pause');}
+          else                   {setSButtonText('Start');endTrip();}}
         }
        />
        <Button
@@ -83,6 +84,18 @@ export default function TripScreen() {
       </View>
       <TripDisplay></TripDisplay>
     </View>
-  );
+   );
+    else 
+    return (
+     <View style={styles.container}>
+       <Text style={styles.title}>Trip Control</Text>
+       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />  
+       <EndScreenInfo path="/screens/TripScreen.tsx" />
+       <Button title={'Dismiss'}
+        onPress={() => { toggleEndPending(); if (getEndPending()) Alert.alert("t"); else Alert.alert("f"); }}
+      />
+     </View>
+    );
+  
 
 }

@@ -9,11 +9,9 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import { Trips } from './GT2';
-import * as fs from 'fs';
 
-
-export var debug:boolean = false;
-       var expoGeoState:any;
+       var debug:boolean      = false;
+       var expoGeoState:any   = null;
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -29,12 +27,11 @@ export default function App() {
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
         return;
-      }
+      } else Trips.setLocEnabled(true);
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
-      if (!errorMsg && location)
-      Trips.deltaLoc(JSON.stringify(location));
+      Trips.deltaLoc(location);
     })();
   }, []);
 

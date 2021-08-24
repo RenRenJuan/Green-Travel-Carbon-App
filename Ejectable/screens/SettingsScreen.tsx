@@ -4,6 +4,7 @@ import { Text, View } from '../components/Themed';
 import { useState } from 'react';
 import ScreenInfo from '../components/ScreenInfo';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Trips } from '../GT2';
 
 export default function SettingsScreen() {
   const [number, onChangeNumber] = React.useState("");
@@ -26,15 +27,27 @@ export default function SettingsScreen() {
        <View style={styles.controls} >
        <Button
          title="Jet"
-         onPress={() => Alert.alert('Jet Fuel Selected \n 285 g / passenger / km')}
+         onPress={() => {
+          Trips.co2Rate = 285.0; 
+          Trips.CO2Effect = "carbon burden";
+          Alert.alert('Jet Fuel Selected \n 285 g / passenger / km')}
+         }
        />
        <Button
        title="Gasoline"
-       onPress={() => Alert.alert('Gasoline Selected \n 255 g for driver \n only passenger / km')}
+       onPress={() => {
+           Trips.co2Rate   = 285.0; 
+           Trips.CO2Effect = "carbon burden";
+           Alert.alert('Gasoline Selected \n 255 g for driver \n only passenger / km')}
+         }
        />  
        <Button
        title="Food"
-       onPress={() => Alert.alert('Savings vs Gasoline Selected')}
+       onPress={() => {
+            Trips.co2Rate = -285.0; 
+            Trips.CO2Effect = "carbon relief";
+            Alert.alert('Savings vs Gasoline Selected')}
+          }
        />
        </View>
        <TextInput   
@@ -42,7 +55,7 @@ export default function SettingsScreen() {
         returnKeyType={'done'}
         onChangeText={onChangeNumber}
         value={number}
-        placeholder="250"
+        placeholder={Trips.co2Rate.toString()}
         keyboardType="numeric"
        />      
     </View>
