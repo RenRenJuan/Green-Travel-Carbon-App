@@ -170,7 +170,6 @@ export class GT2 {
     public reset() {
 
         this.distance   = 0.0;
-        this.co2Rate    = 0.0;  
         this.endPoint   = new Coordinate(0,0);
         this.startPoint = new Coordinate(0,0);
         this.v          = 0;

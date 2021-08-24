@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Alert, Button, StyleSheet } from 'react-native';
+import { Alert, BackHandler, Button, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { ScreenInfo2 } from '../components/ScreenInfo';
 import  EndScreenInfo  from '../components/EndScreenInfo';
@@ -55,7 +55,7 @@ function pauseTrip() {
 
 function endTrip() {  Trips.end(); }
 
-export default function TripScreen( navigation:any ) {
+export default function TripScreen( ) {
 
   const [sButtonText, setSButtonText] = useState("Start"); 
   const [pButtonText, setPButtonText] = useState("Pause");
@@ -92,7 +92,7 @@ export default function TripScreen( navigation:any ) {
        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />  
        <EndScreenInfo path="/screens/TripScreen.tsx" />
        <Button title={'Dismiss'}
-        onPress={() => { toggleEndPending(); if (getEndPending()) Alert.alert("t"); else Alert.alert("f"); }}
+        onPress={() => { toggleEndPending();  }}
       />
      </View>
     );

@@ -36,7 +36,7 @@ export default function SettingsScreen() {
        <Button
        title="Gasoline"
        onPress={() => {
-           Trips.co2Rate   = 285.0; 
+           Trips.co2Rate   = 255.0; 
            Trips.CO2Effect = "carbon burden";
            Alert.alert('Gasoline Selected \n 255 g for driver \n only passenger / km')}
          }
@@ -44,7 +44,7 @@ export default function SettingsScreen() {
        <Button
        title="Food"
        onPress={() => {
-            Trips.co2Rate = -285.0; 
+            Trips.co2Rate = -255.0; 
             Trips.CO2Effect = "carbon relief";
             Alert.alert('Savings vs Gasoline Selected')}
           }
