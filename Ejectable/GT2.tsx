@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as Location from 'expo-location';
 import { Coordinate } from "./Coordinate";
 import { Text, View } from './components/Themed';
-import { Button, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
        var   debug:boolean      = false;
 export var   endPending:boolean = false;
@@ -12,8 +12,8 @@ export var   locEnabled:boolean = false;
        const heartbeat:number   = 500; 
        const displayBeat:number = 3;  
 
-export function getEndPending() { return(endPending) }
-export function toggleEndPending() { endPending = !endPending;}
+export function getEndPending()              { return(endPending); }
+export function setEndPending(value:boolean) { endPending = value; }
 
 const styles = StyleSheet.create({
     tripText: {
@@ -149,7 +149,7 @@ export class GT2 {
         this.trip.stop();
         this.inProgress = false;
         this.nTrips++;
-        toggleEndPending();
+        setEndPending(true);
         
     }
 
@@ -265,10 +265,10 @@ export class TripDisplay extends React.Component {
 
 export class TripSummary extends React.Component {
     
-  constructor(props:any) {
-      super(props);
-      this.state = { slug: null };
-    }
+  handleRefresh = () => {
+    // by calling this method react re-renders the component
+    this.setState({});
+  };
 
   render() {
 

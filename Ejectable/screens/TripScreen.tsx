@@ -4,7 +4,10 @@ import { Alert, BackHandler, Button, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { ScreenInfo2 } from '../components/ScreenInfo';
 import  EndScreenInfo  from '../components/EndScreenInfo';
-import { locEnabled, getEndPending, toggleEndPending, TripDisplay, Trips } from '../GT2';
+import { locEnabled, getEndPending, setEndPending, TripDisplay, Trips } from '../GT2';
+import { RootTabScreenProps } from '../types';
+
+ var debug:number = 10;
 
 const styles = StyleSheet.create({
   container: {
@@ -31,7 +34,7 @@ const styles = StyleSheet.create({
 
 function startTrip() {
 
-  if (!locEnabled ) {
+  if (!locEnabled && debug != 10) {
     Alert.alert("You must enable both foreground\n and background location tracking.");
     return;
   }
@@ -55,12 +58,11 @@ function pauseTrip() {
 
 function endTrip() {  Trips.end(); }
 
-export default function TripScreen( ) {
+export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) {
 
   const [sButtonText, setSButtonText] = useState("Start"); 
   const [pButtonText, setPButtonText] = useState("Pause");
-  
-  if (!getEndPending()) 
+   
    return (
     <View style={styles.container}>
       <Text style={styles.title}>Trip Control</Text>
@@ -70,8 +72,13 @@ export default function TripScreen( ) {
        <Button
         title={sButtonText}
         onPress={() => {
-          if (!Trips.inProgress) {setSButtonText("End");startTrip();setPButtonText('Pause');}
-          else                   {setSButtonText('Start');endTrip();}}
+          if (!Trips.inProgress) {setSButtonText("End");
+                                  startTrip();
+                                  setPButtonText('Pause');}
+          else                   {setSButtonText('Start');
+                                  endTrip();
+                                  navigation.push('Modal');
+        }}
         }
        />
        <Button
@@ -85,15 +92,15 @@ export default function TripScreen( ) {
       <TripDisplay></TripDisplay>
     </View>
    );
-    else 
+  
     return (
      <View style={styles.container}>
        <Text style={styles.title}>Trip Control</Text>
        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />  
        <EndScreenInfo path="/screens/TripScreen.tsx" />
-       <Button title={'Dismiss'}
-        onPress={() => { toggleEndPending();  }}
-      />
+         <Button title={'Done'}
+          onPress={() => { setEndPending(false); navigation.jumpTo('Trip'); }}
+        />
      </View>
     );
   

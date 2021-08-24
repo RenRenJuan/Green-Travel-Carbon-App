@@ -5,8 +5,9 @@ import { useState } from 'react';
 import ScreenInfo from '../components/ScreenInfo';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Trips } from '../GT2';
+import { RootTabScreenProps } from '../types';
 
-export default function SettingsScreen() {
+export default function SettingsScreen( { navigation }: RootTabScreenProps<'Settings'>) {
   const [number, onChangeNumber] = React.useState("");
   const [isKM, setMiles] = useState(false);
   const toggleUnits = () => setMiles(previousState => !previousState);

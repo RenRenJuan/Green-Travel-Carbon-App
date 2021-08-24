@@ -2,12 +2,13 @@ import * as React from 'react';
 import { StyleSheet, ImageBackground } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { ScreenInfo3 } from '../components/ScreenInfo';
+import { RootTabScreenProps } from '../types';
 
 const image = { uri: "https://meansofproduction.biz/images/GREENT.jpg" };
 
 export var nav:any = null;
 
-export default function HomeScreen(navigation:any) {
+export default function HomeScreen( { navigation }: RootTabScreenProps<'Home'>) {
   nav = navigation;
   return (
     <View style={styles.container}>
