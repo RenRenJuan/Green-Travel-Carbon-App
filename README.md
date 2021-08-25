@@ -6,14 +6,15 @@
 - An Expo version of exactly the same functionality as the original 2011 app slightly enhanced
   except it's a completed and x-platform app and the overall trip fuel consumption has been corrected.
 
-  This first replacement on play and first version on app store using an expo build will be maintained
-  but the binaries will be available [here](https://sameboat.live/sb-app) after 2.1 replaces it on the app stores.
+  This first v2 replacement on play and first version on app store using an expo build will be maintained
+  seperate from the production line with binaries posted [here](https://sameboat.live/sb-app) after
+  2.1 replaces it on the app stores.
 
 ## 2.n.m
 
 - Roadmap for regular production Personal Carbon Accounting domain
 
-  - 2.1.0 Regular React Native Android and iOS clients
+  - 2.1.0 Begin regular version with background tracking and improved accuracy
   - 2.2.0 WatchOS version
   - 2.2.1 Maintain trip histories in cloud
   - 2.3.0 Reporting
