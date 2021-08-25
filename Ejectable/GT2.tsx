@@ -3,7 +3,6 @@ import * as Location from 'expo-location';
 import { Text, View } from './components/Themed';
 import { StyleSheet } from 'react-native';
 import * as geolib from 'geolib';
-import { GeolibInputCoordinates } from 'geolib/es/types';
 
        var   debug:number       = 9;
        var   testCount          = 0;
@@ -14,7 +13,8 @@ export var   locEnabled:boolean = false;
        const heartbeat:number   = 500; 
        const displayBeat:number = 3;  
        const ticksPerDs         = 1;
-       const geoLibAccuracy     = 0.34;
+       const geoLibAccuracy     = 0.01;
+       const waitForSettle      = 6;   /* ticks of initial motion to discard */
 
 const styles = StyleSheet.create({
     tripText: {
@@ -39,16 +39,23 @@ interface expoGeoObj {
   ]  
 }
 
+
   class Coordinate {
 
     public mLatitude:number  = 0.0;
     public mLongitude:number = 0.0;
     public glCoords:any      = {};
     
-    constructor (longitude:number, latitude:number) {
+    constructor (latitude:number, longitude:number ) {
       this.mLongitude = longitude;
       this.mLatitude  = latitude;      
-      this,this.get_glcoords();
+      this.get_glcoords();
+    }
+
+    public set(lat:number,lon:number) {
+      this.mLatitude  = lat;
+      this.mLongitude = lon;
+      this.get_glcoords();
     }
 
     public get_glcoords() {
@@ -57,11 +64,12 @@ interface expoGeoObj {
           }
 
     public distanceTo(otherPoint:Coordinate) : number {
-      return geolib.getDistance(this.glCoords,otherPoint.glCoords,geoLibAccuracy);
+      return geolib.getPreciseDistance(this.glCoords,otherPoint.glCoords,geoLibAccuracy);
     }
 
   }
           
+
  async function startTracking(client:any){
   if (debug > 5) console.log('Starting tracking')
   if(!client.location){
@@ -82,31 +90,35 @@ async function stopTracking(client:any){
 
 class Trip {
 
-    public elapsed:string     = "00.00.00";
-           ticks:number       = 0;
+    public elapsed:string      = "00.00.00";
+           ticks:number        = 0;
            interval:any;
-           segments:number    = 1;
-           ds:number          = 0;
-           CO2:number         = 0.0;
-           location:any       = null;
-           lastDSFixTick      = 0;
-           lastFix:Coordinate    = new Coordinate(0.0,0.0);
-	         loc:Coordinate        = new Coordinate(0.0,0.0);
+           segments:number     = 1;
+           ds:number           = 0;
+           CO2:number          = 0.0;
+           location:any        = null;
+           lastDSFixTick       = 0;
+           lastFix:Coordinate  = new Coordinate(0.0,0.0);
+	         loc:Coordinate      = new Coordinate(0.0,0.0);
 
            tick()  {let hours:number   = 0, minutes:number = 0, seconds:number = 0;                   
                     this.ticks += ( 1000 / heartbeat ) ; 
+                    { /* TODO: guard by actual second discrimination later */
                     hours   = this.ticks < 3600 ? 0 : (this.ticks / 3600);
                     minutes = this.ticks < 60 ? 0 : (this.ticks - (hours * 3600)) / 60;
                     seconds = this.ticks % 60;
-                    this.elapsed = hours.toFixed(0) + ":" + minutes.toFixed(0) + ":" + seconds.toFixed(0);  
-                    }       
+                    }
+                    this.elapsed = hours.toFixed(0) + ":" + minutes.toFixed(0) + ":" + seconds.toFixed(0); 
+                   }       
 
     public start()   { this.interval = setInterval(() => this.tick(), heartbeat);
                        if (!bgEnabled) startTracking(this);
     }
+
     public resume()  { this.lastFix.mLatitude = 0.0;
                        this.segments++;
                        this.interval   = setInterval(() => this.tick(), heartbeat); }               
+
     public stop()    { Trips.distance += this.ds;
                        this.ds = 0.0;
                        clearInterval(this.interval); 
@@ -141,54 +153,34 @@ export class GT2 {
 
     public deltaLoc(lastFix:any) {
 
-        lastFix = JSON.stringify(lastFix);
+        var t:number = 0.0;
+        lastFix                = JSON.stringify(lastFix);
         let expoFix:expoGeoObj = JSON.parse(lastFix);  
 
-        if (testCount < 1) {
-          var n:number = -1;
-
-          var nyc:Coordinate = new Coordinate ( 40.7128 , 74.0060 );
-          var ord:Coordinate = new Coordinate ( 41.8781 ,  87.6298);
-
-          n = nyc.distanceTo(ord);
-
-          console.log('nyc ord ' + n);
-          testCount++;
-
-        }
-
-        this.trip.loc.mLongitude = expoFix.coords['longitude'];
-        this.trip.loc.mLatitude  = expoFix.coords['latitude'];
-        this.trip.loc.get_glcoords();
-
-        if (Trips.startPoint.mLatitude == 0.0) {
-            Trips.startPoint.mLatitude  = this.trip.loc.mLatitude;
-            Trips.startPoint.mLongitude = this.trip.loc.mLongitude;
-            this.trip.loc.get_glcoords();
-        }
-
-        if (this.trip.lastFix.mLatitude != 0.0) {
-          if ((this.trip.ticks - this.trip.lastDSFixTick) >= ticksPerDs) {
-            this.trip.lastDSFixTick     = this.trip.ticks;
-            this.trip.lastFix.mLatitude = this.trip.loc.mLatitude;
-            this.trip.lastFix.mLatitude = this.trip.loc.mLatitude;
-            this.trip.loc.get_glcoords();
-            this.trip.ds += this.trip.lastFix.distanceTo(this.trip.loc);
-            if (debug > 8) console.log(this.trip.ds);
+             this.trip.loc.set(expoFix.coords['latitude'],expoFix.coords['longitude']);
+  
+        if (Trips.startPoint.mLatitude == 0.0) 
+            Trips.startPoint.set(this.trip.loc.mLatitude,this.trip.loc.mLongitude);
+    
+        if (this.trip.lastFix.mLatitude == 0.0)
+            this.trip.lastFix.set(this.trip.loc.mLatitude,this.trip.loc.mLongitude);
+        else 
+          {if ((this.trip.ticks - this.trip.lastDSFixTick) >= ticksPerDs) {           
+      
+                this.trip.ds += this.trip.lastFix.distanceTo(this.trip.loc);
+            this.trip.lastFix.set(this.trip.loc.mLatitude,this.trip.loc.mLongitude);
+            if (debug > 10) console.log(this.trip.ds);
+           }
           }
-        }
-        else {
-            this.trip.lastFix.mLatitude = this.trip.loc.mLatitude;
-            this.trip.lastFix.mLatitude = this.trip.loc.mLatitude;
-            this.trip.loc.get_glcoords();
-        }
 
     }
 
     public end()   {
         
+
         this.trip.stop();
         this.inProgress = false;
+        this.trip.CO2   = ( this.distance / 1000 ) * this.co2Rate;
         this.nTrips++;
         
     }
@@ -241,21 +233,23 @@ export class GT2 {
                    ' long: ' + this.trip.loc.mLongitude.toFixed(8) + '\n' +
       'Destination:  ' + 'lat: ' + this.trip.loc.mLatitude.toFixed(8) +
                    ' long: ' + this.trip.loc.mLongitude.toFixed(8) + '\n' +             
-      'CO2:                ' + this.trip.CO2 + ' grams ' + this.CO2Effect + '\n\n' +
-      'Distance covered while consuming fuel: ' + preferredUnits.toFixed(4) + ' ' + this.units );
+      'CO2:                ' + this.trip.CO2.toFixed(1) + ' grams ' + this.CO2Effect + '\n\n' +
+      'Distance covered while consuming fuel: ' + preferredUnits.toFixed(2) + ' ' + this.units );
        
     }
 
     public getTripPanel() : string   {
 
         var bigDS:number = this.distance + this.trip.ds;
+        var seconds:number = this.trip.ticks;
 
         if (this.inProgress) {
+        this.v          = this.trip.ds / seconds;
         return ( 
         'Elapsed -    ' + this.trip.elapsed + '\n' +
         'Geo:             ' + 'lat: ' + this.trip.loc.mLatitude.toFixed(8) +
                           ' long: ' + this.trip.loc.mLongitude.toFixed(8) + '\n' +
-        'Vector:        ' + 'distance: ' + bigDS.toFixed(4) + ' velocity: ' + this.v + 'm/s \n' + 
+        'Vector:        ' + 'distance: ' + bigDS.toFixed(2) + ' meters, velocity: ' + this.v.toFixed(1) + ' m/s \n' + 
         'Altitude:     ' + this.elevation + '\n');
         }
         else return("No trip in progress. " + this.nTrips + " trip(s) completed.");

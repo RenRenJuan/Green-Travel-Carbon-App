@@ -6,6 +6,10 @@ import EndScreenInfo from '../components/EndScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 
+       var      advised:boolean    = false;
+export function getAdvised() : boolean { return advised; }
+export function setAdvised() : void    { advised = true; }
+
 export default function ModalScreen({ navigation }: RootTabScreenProps<'Settings'>) {
   return (
     <View style={styles.container}>

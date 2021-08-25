@@ -3,7 +3,6 @@ import { Alert, Button, StyleSheet, Switch, TextInput } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { useState } from 'react';
 import ScreenInfo from '../components/ScreenInfo';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Trips } from '../GT2';
 import { RootTabScreenProps } from '../types';
 

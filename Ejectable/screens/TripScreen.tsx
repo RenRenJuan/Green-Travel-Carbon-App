@@ -5,8 +5,8 @@ import { Text, View } from '../components/Themed';
 import { ScreenInfo2 } from '../components/ScreenInfo';
 import { locEnabled, TripDisplay, Trips } from '../GT2';
 import { RootTabScreenProps } from '../types';
+import { getAdvised, setAdvised } from './ModalScreen';
 
-var advised:boolean = false;
 var debug:number    = 10;
 
 const styles = StyleSheet.create({
@@ -70,9 +70,9 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
        <Button
         title={sButtonText}
         onPress={() => {
-          if (!advised) {
-            Alert.alert("2.1.0 and later will use background tracking.");
-            advised = true;
+          if (!getAdvised()) {
+            Alert.alert("Expo version only tracks while in foreground.");
+            setAdvised();
           }
           if (!Trips.inProgress) {startTrip();
                                   if (Trips.inProgress) { setSButtonText("End"); setPButtonText('Pause');}}
