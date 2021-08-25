@@ -6,9 +6,9 @@
 - An Expo version of exactly the same functionality as the original 2011 app slightly enhanced
   except it's a completed and x-platform app and the overall trip fuel consumption has been corrected.
 
-  This first v2 replacement on play and first version on app store using an expo build will be maintained
-  seperate from the production line with binaries posted [here](https://sameboat.live/sb-app) after
-  2.1 replaces it on the app stores.
+  This first v2 replacement on play and first version on app store uses an expo build and will be maintained
+  separate from the subsequent production line which will use the [common mechanism](https://sameboat.live/sb-app) 
+  for delivery of my apps from 2.1 forward.
 
 ## 2.n.m
 
