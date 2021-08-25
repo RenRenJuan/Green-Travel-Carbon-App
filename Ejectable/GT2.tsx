@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import * as Location from 'expo-location';
-import { Coordinate } from "./Coordinate";
 import { Text, View } from './components/Themed';
 import { StyleSheet } from 'react-native';
+import * as geolib from 'geolib';
+import { GeolibInputCoordinates } from 'geolib/es/types';
 
-       var   debug:boolean      = false;
-export var   endPending:boolean = false;
+       var   debug:number       = 9;
+       var   testCount          = 0;
+       var   bgEnabled:boolean  = false;
        var   expoGeoState:any   = null;
 export var   locEnabled:boolean = false;
 
        const heartbeat:number   = 500; 
        const displayBeat:number = 3;  
-
-export function getEndPending()              { return(endPending); }
-export function setEndPending(value:boolean) { endPending = value; }
+       const ticksPerDs         = 1;
+       const geoLibAccuracy     = 0.34;
 
 const styles = StyleSheet.create({
     tripText: {
@@ -24,37 +25,60 @@ const styles = StyleSheet.create({
      fontSize: 12,
      fontWeight: 'bold',
     }});
+  
+interface expoGeoObj {
+  coords: [
+    altitude:number,
+    altitudeAccuracy:number,
+    latitude:number,
+    accuracy:number,
+    longitude:number,
+    heading:number,
+    speed:number,
+    timestamp:number
+  ]  
+}
 
+  class Coordinate {
 
-function Monitor() {
+    public mLatitude:number  = 0.0;
+    public mLongitude:number = 0.0;
+    public glCoords:any      = {};
+    
+    constructor (longitude:number, latitude:number) {
+      this.mLongitude = longitude;
+      this.mLatitude  = latitude;      
+      this,this.get_glcoords();
+    }
 
-        const [location, setLocation] = useState(Object);
-        const [errorMsg, setErrorMsg] = useState("");
-      
-        useEffect(() => {
-          (async () => {
-            let { status } = await Location.requestBackgroundPermissionsAsync();
-            if (status !== 'granted') {
-              setErrorMsg('Permission to monitor location was denied');
-              return;
-            } else Trips.setLocEnabled(true);
-      
-            let location = await Location.getCurrentPositionAsync({});
-            setLocation(location);
-            Trips.deltaLoc(location);
-          })();
-        }, []);
-      
-        expoGeoState = 'Waiting..';
-        if (errorMsg) {
-          expoGeoState = errorMsg;
-        } else if (location) { 
-          expoGeoState = JSON.stringify(location);
-        }
-      
-      
-      }
-      
+    public get_glcoords() {
+        this.glCoords['lat'] = this.mLatitude;
+        this.glCoords['lon'] = this.mLongitude;
+          }
+
+    public distanceTo(otherPoint:Coordinate) : number {
+      return geolib.getDistance(this.glCoords,otherPoint.glCoords,geoLibAccuracy);
+    }
+
+  }
+          
+ async function startTracking(client:any){
+  if (debug > 5) console.log('Starting tracking')
+  if(!client.location){
+      client.location = await Location.watchPositionAsync({
+          accuracy: Location.Accuracy.Highest,
+          distanceInterval: 3,
+          timeInterval: (heartbeat / 2),
+      }, (loc) => {
+         Trips.deltaLoc(loc)
+      });
+  }
+}
+
+async function stopTracking(client:any){
+  if (debug > 5) console.log('Remove tracking')
+  await client.location.remove();
+}
 
 class Trip {
 
@@ -62,45 +86,35 @@ class Trip {
            ticks:number       = 0;
            interval:any;
            segments:number    = 1;
-           distance:number    = 0;
            ds:number          = 0;
            CO2:number         = 0.0;
-       
-	       loc:Coordinate        = new Coordinate(0.0,0.0);
-           startPoint:Coordinate = new Coordinate(0.0,0.0)
+           location:any       = null;
+           lastDSFixTick      = 0;
+           lastFix:Coordinate    = new Coordinate(0.0,0.0);
+	         loc:Coordinate        = new Coordinate(0.0,0.0);
 
            tick()  {let hours:number   = 0, minutes:number = 0, seconds:number = 0;                   
-                    this.ticks++; 
+                    this.ticks += ( 1000 / heartbeat ) ; 
                     hours   = this.ticks < 3600 ? 0 : (this.ticks / 3600);
                     minutes = this.ticks < 60 ? 0 : (this.ticks - (hours * 3600)) / 60;
                     seconds = this.ticks % 60;
-                    this.elapsed = hours.toFixed(0) + ":" + minutes.toFixed(0) + ":" + seconds.toFixed(0);   
-                   }           
-    public start()   { this.interval = setInterval(() => this.tick(), heartbeat);   }
-    public resume()  { this.startPoint = new Coordinate(0.0,0.0)
-                       this.loc = new Coordinate(0.0, 0.0);
+                    this.elapsed = hours.toFixed(0) + ":" + minutes.toFixed(0) + ":" + seconds.toFixed(0);  
+                    }       
+
+    public start()   { this.interval = setInterval(() => this.tick(), heartbeat);
+                       if (!bgEnabled) startTracking(this);
+    }
+    public resume()  { this.lastFix.mLatitude = 0.0;
                        this.segments++;
                        this.interval   = setInterval(() => this.tick(), heartbeat); }               
-    public  stop()   { this.ds         = this.loc.distanceTo(this.startPoint);
-                       this.distance  += this.ds;
+    public stop()    { Trips.distance += this.ds;
+                       this.ds = 0.0;
                        clearInterval(this.interval); 
-                           
+                       if (!bgEnabled) stopTracking(this);              
                      }
 
 }
 
-interface expoGeoObj {
-    coords: [
-      altitude:number,
-      altitudeAccuracy:number,
-      latitude:number,
-      accuracy:number,
-      longitude:number,
-      heading:number,
-      speed:number,
-      timestamp:number
-    ]  
-}
 
 export class GT2 {
 
@@ -120,27 +134,54 @@ export class GT2 {
     public units:string           = "km";
     public CO2Effect:string       = "carbon burden";
 
-
            nTrips:number  = 0;
 
            n:number = 0.0;
            m:number = 0.0;
-
 
     public deltaLoc(lastFix:any) {
 
         lastFix = JSON.stringify(lastFix);
         let expoFix:expoGeoObj = JSON.parse(lastFix);  
 
-        this.trip.loc.setLongitude(expoFix.coords['longitude']);
-        this.trip.loc.setLatitude(expoFix.coords['latitude']);
+        if (testCount < 1) {
+          var n:number = -1;
 
-        if (this.trip.startPoint.mLatitude == 0.0) {
-            this.trip.startPoint.mLatitude  = this.trip.loc.mLatitude;
-            this.trip.startPoint.mLongitude = this.trip.loc.mLongitude;
+          var nyc:Coordinate = new Coordinate ( 40.7128 , 74.0060 );
+          var ord:Coordinate = new Coordinate ( 41.8781 ,  87.6298);
+
+          n = nyc.distanceTo(ord);
+
+          console.log('nyc ord ' + n);
+          testCount++;
+
         }
 
-        this.trip.ds = this.trip.loc.distanceTo(this.trip.startPoint);
+        this.trip.loc.mLongitude = expoFix.coords['longitude'];
+        this.trip.loc.mLatitude  = expoFix.coords['latitude'];
+        this.trip.loc.get_glcoords();
+
+        if (Trips.startPoint.mLatitude == 0.0) {
+            Trips.startPoint.mLatitude  = this.trip.loc.mLatitude;
+            Trips.startPoint.mLongitude = this.trip.loc.mLongitude;
+            this.trip.loc.get_glcoords();
+        }
+
+        if (this.trip.lastFix.mLatitude != 0.0) {
+          if ((this.trip.ticks - this.trip.lastDSFixTick) >= ticksPerDs) {
+            this.trip.lastDSFixTick     = this.trip.ticks;
+            this.trip.lastFix.mLatitude = this.trip.loc.mLatitude;
+            this.trip.lastFix.mLatitude = this.trip.loc.mLatitude;
+            this.trip.loc.get_glcoords();
+            this.trip.ds += this.trip.lastFix.distanceTo(this.trip.loc);
+            if (debug > 8) console.log(this.trip.ds);
+          }
+        }
+        else {
+            this.trip.lastFix.mLatitude = this.trip.loc.mLatitude;
+            this.trip.lastFix.mLatitude = this.trip.loc.mLatitude;
+            this.trip.loc.get_glcoords();
+        }
 
     }
 
@@ -149,7 +190,6 @@ export class GT2 {
         this.trip.stop();
         this.inProgress = false;
         this.nTrips++;
-        setEndPending(true);
         
     }
 
@@ -192,24 +232,30 @@ export class GT2 {
 
     public getTripSummary() : string   {
 
+      var preferredUnits:number = ((this.units == 'km') ? (this.distance / 1000)
+           : (this.distance / 1609.34));
+
      return ( 
       'Elapsed -        ' + this.trip.elapsed + '\n' +
       'Origin:             ' + 'lat: ' + this.trip.loc.mLatitude.toFixed(8) +
                    ' long: ' + this.trip.loc.mLongitude.toFixed(8) + '\n' +
       'Destination:  ' + 'lat: ' + this.trip.loc.mLatitude.toFixed(8) +
-                   ' long: ' + this.trip.loc.mLongitude.toFixed(8) + '\n' +
-      'CO2:                ' + this.trip.CO2 + ' grams ' + this.CO2Effect );
+                   ' long: ' + this.trip.loc.mLongitude.toFixed(8) + '\n' +             
+      'CO2:                ' + this.trip.CO2 + ' grams ' + this.CO2Effect + '\n\n' +
+      'Distance covered while consuming fuel: ' + preferredUnits.toFixed(4) + ' ' + this.units );
        
     }
 
     public getTripPanel() : string   {
+
+        var bigDS:number = this.distance + this.trip.ds;
 
         if (this.inProgress) {
         return ( 
         'Elapsed -    ' + this.trip.elapsed + '\n' +
         'Geo:             ' + 'lat: ' + this.trip.loc.mLatitude.toFixed(8) +
                           ' long: ' + this.trip.loc.mLongitude.toFixed(8) + '\n' +
-        'Vector:        ' + 'distance: ' + this.trip.ds + ' velocity: ' + this.v + '\n' + 
+        'Vector:        ' + 'distance: ' + bigDS.toFixed(4) + ' velocity: ' + this.v + 'm/s \n' + 
         'Altitude:     ' + this.elevation + '\n');
         }
         else return("No trip in progress. " + this.nTrips + " trip(s) completed.");
@@ -243,7 +289,7 @@ export class TripDisplay extends React.Component {
 
     render() {
 
-        if (!debug) 
+        if (debug > 10) 
          return(
          <View>
            <Text style={styles.tripText}>

@@ -3,11 +3,11 @@ import { useState } from 'react';
 import { Alert, BackHandler, Button, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { ScreenInfo2 } from '../components/ScreenInfo';
-import  EndScreenInfo  from '../components/EndScreenInfo';
-import { locEnabled, getEndPending, setEndPending, TripDisplay, Trips } from '../GT2';
+import { locEnabled, TripDisplay, Trips } from '../GT2';
 import { RootTabScreenProps } from '../types';
 
- var debug:number = 10;
+var advised:boolean = false;
+var debug:number    = 10;
 
 const styles = StyleSheet.create({
   container: {
@@ -34,10 +34,10 @@ const styles = StyleSheet.create({
 
 function startTrip() {
 
-  if (!locEnabled && debug != 10) {
-    Alert.alert("You must enable both foreground\n and background location tracking.");
+  /* if (!locEnabled) {
+    Alert.alert("Location permission required.");
     return;
-  }
+  } */
 
   Trips.start();
 
@@ -46,11 +46,9 @@ function startTrip() {
 function pauseTrip() {
 
   if (!Trips.paused) {
-      Alert.alert('Trip Paused');
       Trips.pause();
   }
   else    {
-      Alert.alert('Trip Resumed');
       Trips.pause();
   }
 
@@ -72,13 +70,13 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
        <Button
         title={sButtonText}
         onPress={() => {
-          if (!Trips.inProgress) {setSButtonText("End");
-                                  startTrip();
-                                  setPButtonText('Pause');}
-          else                   {setSButtonText('Start');
-                                  endTrip();
-                                  navigation.push('Modal');
-        }}
+          if (!advised) {
+            Alert.alert("2.1.0 and later will use background tracking.");
+            advised = true;
+          }
+          if (!Trips.inProgress) {startTrip();
+                                  if (Trips.inProgress) { setSButtonText("End"); setPButtonText('Pause');}}
+          else                   {setSButtonText('Start'); endTrip(); navigation.push('Modal'); }}
         }
        />
        <Button
@@ -92,17 +90,6 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
       <TripDisplay></TripDisplay>
     </View>
    );
-  
-    return (
-     <View style={styles.container}>
-       <Text style={styles.title}>Trip Control</Text>
-       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />  
-       <EndScreenInfo path="/screens/TripScreen.tsx" />
-         <Button title={'Done'}
-          onPress={() => { setEndPending(false); navigation.jumpTo('Trip'); }}
-        />
-     </View>
-    );
-  
+    
 
 }

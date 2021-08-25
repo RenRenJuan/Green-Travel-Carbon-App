@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { Alert,Text } from 'react-native';
+import { Text } from 'react-native';
 import * as Location from 'expo-location';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -42,6 +42,7 @@ export default function App() {
     expoGeoState = JSON.stringify(location);
   }
 
+
   if (!isLoadingComplete) {
     return null;
   } else {
@@ -61,4 +62,5 @@ export default function App() {
       </SafeAreaProvider>
     );
   }
+
 }

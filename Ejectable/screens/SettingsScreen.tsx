@@ -10,7 +10,9 @@ import { RootTabScreenProps } from '../types';
 export default function SettingsScreen( { navigation }: RootTabScreenProps<'Settings'>) {
   const [number, onChangeNumber] = React.useState("");
   const [isKM, setMiles] = useState(false);
-  const toggleUnits = () => setMiles(previousState => !previousState);
+  const toggleUnits = () => { setMiles(previousState => !previousState)
+           Trips.units = isKM ? "km" : "mi";
+  };
 
   return (
     <View style={styles.container}>
