@@ -4,17 +4,17 @@ import { Text, View } from './components/Themed';
 import { StyleSheet } from 'react-native';
 import * as geolib from 'geolib';
 
-       var   debug:number       = 9;
+       var   debug:number       = 0;
        var   testCount          = 0;
        var   bgEnabled:boolean  = false;
        var   expoGeoState:any   = null;
 export var   locEnabled:boolean = false;
 
        const heartbeat:number   = 500; 
-       const displayBeat:number = 3;  
-       const ticksPerDs         = 1;
-       const geoLibAccuracy     = 0.01;
-       const waitForSettle      = 6;   /* ticks of initial motion to discard */
+       const displayBeat:number = 3;
+
+       const geoLibAccuracy:number   = 0.1;
+       const minExpoAccuracy:number  = 10;
 
 const styles = StyleSheet.create({
     tripText: {
@@ -101,13 +101,12 @@ class Trip {
            lastFix:Coordinate  = new Coordinate(0.0,0.0);
 	         loc:Coordinate      = new Coordinate(0.0,0.0);
 
-           tick()  {let hours:number   = 0, minutes:number = 0, seconds:number = 0;                   
-                    this.ticks += ( 1000 / heartbeat ) ; 
-                    { /* TODO: guard by actual second discrimination later */
-                    hours   = this.ticks < 3600 ? 0 : (this.ticks / 3600);
-                    minutes = this.ticks < 60 ? 0 : (this.ticks - (hours * 3600)) / 60;
-                    seconds = this.ticks % 60;
-                    }
+           tick()  {let hours:number   = 0, minutes:number = 0, seconds:number = 0, totals:number = 0;
+                    this.ticks++;
+                    totals = this.ticks * ( heartbeat / 1000 ) ; 
+                    hours   = totals < 3600 ? 0 : (totals / 3600);
+                    minutes = totals < 60   ? 0 : (totals - (hours * 3600)) / 60;
+                    seconds = totals % 60;
                     this.elapsed = hours.toFixed(0) + ":" + minutes.toFixed(0) + ":" + seconds.toFixed(0); 
                    }       
 
@@ -152,25 +151,34 @@ export class GT2 {
            m:number = 0.0;
 
     public deltaLoc(lastFix:any) {
-
+ 
         var t:number = 0.0;
         lastFix                = JSON.stringify(lastFix);
         let expoFix:expoGeoObj = JSON.parse(lastFix);  
 
-             this.trip.loc.set(expoFix.coords['latitude'],expoFix.coords['longitude']);
-  
+        if (debug > 10) {
+
+             console.log("lat " + expoFix.coords['latitude'] + " lon " + expoFix.coords['longitude']);
+             console.log("heading " + expoFix.coords['heading']);
+             console.log("accuracy " + expoFix.coords['accuracy']);
+             console.log("speed " + expoFix.coords['speed']);
+
+        }      
+
+        this.trip.loc.set(expoFix.coords['latitude'],expoFix.coords['longitude']);
+
         if (Trips.startPoint.mLatitude == 0.0) 
             Trips.startPoint.set(this.trip.loc.mLatitude,this.trip.loc.mLongitude);
     
+        t = expoFix.coords['accuracy']; if (t <  minExpoAccuracy )  return;
+
         if (this.trip.lastFix.mLatitude == 0.0)
             this.trip.lastFix.set(this.trip.loc.mLatitude,this.trip.loc.mLongitude);
         else 
-          {if ((this.trip.ticks - this.trip.lastDSFixTick) >= ticksPerDs) {           
-      
-                this.trip.ds += this.trip.lastFix.distanceTo(this.trip.loc);
-            this.trip.lastFix.set(this.trip.loc.mLatitude,this.trip.loc.mLongitude);
-            if (debug > 10) console.log(this.trip.ds);
-           }
+          {this.trip.ds += this.trip.lastFix.distanceTo(this.trip.loc);
+           this.trip.lastFix.set(this.trip.loc.mLatitude,this.trip.loc.mLongitude);
+           if (debug > 10) console.log('delta ' + this.trip.ds);
+           
           }
 
     }
@@ -180,6 +188,7 @@ export class GT2 {
 
         this.trip.stop();
         this.inProgress = false;
+        if (this.distance < 250) this.distance = 0;
         this.trip.CO2   = ( this.distance / 1000 ) * this.co2Rate;
         this.nTrips++;
         

@@ -12,8 +12,8 @@ import { Trips } from './GT2';
 
        var debug:boolean      = false;
        var expoGeoState:any   = null;
-
        var advised:boolean    = false;
+
 export function getAdvised() : boolean { return advised; }
 export function setAdvised() : void    { advised = true; }
 
@@ -30,6 +30,7 @@ export default function App() {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
+        Trips.setLocEnabled(false);
         return;
       } else Trips.setLocEnabled(true);
 

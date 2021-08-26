@@ -7,7 +7,7 @@ import { locEnabled, TripDisplay, Trips } from '../GT2';
 import { RootTabScreenProps } from '../types';
 import { getAdvised, setAdvised } from './ModalScreen';
 
-var debug:number    = 10;
+var debug:number    =  0;
 
 const styles = StyleSheet.create({
   container: {
@@ -34,10 +34,10 @@ const styles = StyleSheet.create({
 
 function startTrip() {
 
-  /* if (!locEnabled) {
-    Alert.alert("Location permission required.");
+  if (!locEnabled) {
+    Alert.alert("Location services unavailable can't start trip.");
     return;
-  } */
+  } 
 
   Trips.start();
 
@@ -71,7 +71,7 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
         title={sButtonText}
         onPress={() => {
           if (!getAdvised()) {
-            Alert.alert("Expo version only tracks while in foreground.");
+            Alert.alert("2.0.0 foreground only, 2.1 first production.");
             setAdvised();
           }
           if (!Trips.inProgress) {startTrip();

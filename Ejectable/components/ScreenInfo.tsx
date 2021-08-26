@@ -46,6 +46,12 @@ export function ScreenInfo3() {
           darkColor="rgba(255,255,255,0.8)">
           expo version
         </Text>  
+        <Text
+          style={styles.cautionText}
+          lightColor="rgba(0,0,0,0.8)"
+          darkColor="rgba(255,255,255,0.8)">
+          If getting erratic results, try another device.
+        </Text>  
     </View>
   );
 }
@@ -74,6 +80,12 @@ const styles = StyleSheet.create({
   versionText: {
     color: 'yellow',
     fontSize: 10,
+    textAlign: 'center',
+  },
+  cautionText: {
+    top: 90,
+    color: 'white',
+    fontSize: 14,
     textAlign: 'center',
   },
 });
