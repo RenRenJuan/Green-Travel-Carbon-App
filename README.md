@@ -16,9 +16,9 @@
 
   - 2.1.0 Begin regular version with background tracking and improved accuracy
   - 2.2.0 WatchOS version
-  - 2.2.1 Maintain trip histories in cloud
-  - 2.3.0 Reporting
+  - 2.3.0 Maintain trip histories in cloud
   - 2.4.0 Group Aggregation 
+  - 2.5.0 Reporting
 
   A base completely free client with the core trip model will remain free and it's sources will 
   be here.
