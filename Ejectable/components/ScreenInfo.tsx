@@ -50,7 +50,8 @@ export function ScreenInfo3() {
           style={styles.cautionText}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
-          If getting erratic results, try another device.
+          Spurious motion from expo location when at rest, addressed at end of trip and
+          as good or better than 2011 app on 2.1.0.
         </Text>  
     </View>
   );
