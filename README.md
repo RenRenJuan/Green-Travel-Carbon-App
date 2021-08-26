@@ -1,4 +1,4 @@
-# GT2 [greentravel.app](https://greentravel.app)
+# GT2 [greentravel.app](https://greentravel.app/doc)
 <span style="font-size: 12px">Originally Green Travel Carbon Calculator</span>
 
 ## 2.0.0
