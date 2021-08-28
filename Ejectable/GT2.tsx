@@ -5,6 +5,7 @@ import { StyleSheet } from 'react-native';
 import * as geolib from 'geolib';
 
        var   debug:number       = 0;
+       var   endIsNigh:boolean  = false;
        var   testCount          = 0;
        var   bgEnabled:boolean  = false;
        var   expoGeoState:any   = null;
@@ -15,6 +16,9 @@ export var   locEnabled:boolean = false;
 
        const geoLibAccuracy:number   = 0.1;
        const minExpoAccuracy:number  = 10;
+
+export function getEndIsLast() : boolean       { return endIsNigh;  }  
+export function setEndIsLast(value:boolean)    { endIsNigh = value;  }       
 
 const styles = StyleSheet.create({
     tripText: {
@@ -211,6 +215,19 @@ export class GT2 {
         
     }
 
+    public from(last:GT2) {
+
+         this.startPoint  =  last.startPoint;
+         this.trip.loc    =  last.trip.loc;
+         this.elapsed     =  last.elapsed;
+         this.endPoint    =  last.endPoint;
+         this.CO2Effect   =  last.CO2Effect;
+         this.co2Rate     =  last.co2Rate;
+         this.units       =  last.units;
+         this.sensitivity =  last.sensitivity;
+
+    }
+
     public setLocEnabled(value:boolean) { locEnabled = value}
 
     public pause() {
@@ -255,8 +272,8 @@ export class GT2 {
 
      return ( 
       'Elapsed -        ' + this.trip.elapsed + '\n' +
-      'Origin:             ' + 'lat: ' + this.trip.loc.mLatitude.toFixed(8) +
-                   ' long: ' + this.trip.loc.mLongitude.toFixed(8) + '\n' +
+      'Origin:             ' + 'lat: ' + this.startPoint.mLatitude.toFixed(8) +
+                   ' long: ' + this.startPoint.mLongitude.toFixed(8) + '\n' +
       'Destination:  ' + 'lat: ' + this.trip.loc.mLatitude.toFixed(8) +
                    ' long: ' + this.trip.loc.mLongitude.toFixed(8) + '\n' +             
       'CO2:                ' + this.trip.CO2.toFixed(1) + ' grams ' + this.CO2Effect + '\n\n' +
@@ -338,7 +355,17 @@ export class TripSummary extends React.Component {
   };
 
   render() {
-
+ 
+      if (endIsNigh) {
+        setEndIsLast(false); 
+        return(
+          <View>
+            <Text style={styles.tripText}>
+              {LastTrip.getTripSummary() }
+            </Text>
+          </View> );
+         
+      } else
        return(
        <View>
          <Text style={styles.tripText}>
@@ -350,4 +377,5 @@ export class TripSummary extends React.Component {
 
 }
 
-export var Trips:GT2 = new GT2();
+export var Trips:GT2    = new GT2();
+export var LastTrip:GT2 = new GT2();

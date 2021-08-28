@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Alert, BackHandler, Button, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { ScreenInfo2 } from '../components/ScreenInfo';
-import { locEnabled, TripDisplay, Trips } from '../GT2';
+import { locEnabled, TripDisplay, LastTrip, Trips } from '../GT2';
 import { RootTabScreenProps } from '../types';
 import { getAdvised, setAdvised } from './ModalScreen';
 
@@ -61,6 +61,7 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
   const [sButtonText, setSButtonText] = useState("Start"); 
   const [pButtonText, setPButtonText] = useState("Pause");
    
+   if (Trips.nTrips < 1)
    return (
     <View style={styles.container}>
       <Text style={styles.title}>Trip Control</Text>
@@ -71,7 +72,7 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
         title={sButtonText}
         onPress={() => {
           if (!getAdvised()) {
-            Alert.alert("Note: GT2 2.0.n doesn't run in background.");
+            Alert.alert("Note:GT2 2.0.n doesn't run in background.");
             setAdvised();
           }
           if (!Trips.inProgress) {startTrip();
@@ -88,6 +89,39 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
        />
       </View>
       <TripDisplay></TripDisplay>
+    </View>
+   );
+   else;
+   return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Trip Control</Text>
+      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />  
+      <ScreenInfo2 />
+      <View style={styles.controls} >
+       <Button
+        title={sButtonText}
+        onPress={() => {
+          if (!getAdvised()) {
+            Alert.alert("Note:GT2 2.0.n doesn't run in background.");
+            setAdvised();
+          }
+          if (!Trips.inProgress) {startTrip();
+                                  if (Trips.inProgress) { setSButtonText("End"); setPButtonText('Pause');}}
+          else                   {setSButtonText('Start'); endTrip(); LastTrip.from(Trips); navigation.push('Modal'); }}
+        }
+       />
+       <Button
+        title={pButtonText}
+        onPress={() => { if (!Trips.inProgress) Alert.alert("No trip in progress!"); else {
+          if (!Trips.paused) {setPButtonText("Resume");pauseTrip();}
+          else {setPButtonText('Pause');pauseTrip();}}}
+        }
+       />
+       </View>
+      <TripDisplay></TripDisplay>
+       <View>
+       <Button title={'Show Last Trip'} onPress={() => { navigation.push('Modal'); } } />
+      </View>
     </View>
    );
     
