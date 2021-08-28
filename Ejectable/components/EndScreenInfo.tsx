@@ -45,11 +45,12 @@ function handleHelpPress() {
 
 const styles = StyleSheet.create({
   summaryContainer: {
+    marginVertical: -9,
     alignItems: 'center',
     marginHorizontal: 50,
   },
   helpContainer: {
-    marginTop: 15,
+    marginTop: 10,
     marginHorizontal: 20,
     alignItems: 'center',
   }, 

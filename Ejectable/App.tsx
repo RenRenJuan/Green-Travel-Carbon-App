@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { Text } from 'react-native';
+import { Alert, Text } from 'react-native';
 import * as Location from 'expo-location';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -31,12 +31,15 @@ export default function App() {
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
         Trips.setLocEnabled(false);
+        Alert.alert("Permission to access location was denied, this app requires it.");
         return;
       } else Trips.setLocEnabled(true);
 
+      if (debug) {
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
       Trips.deltaLoc(location);
+      }
     })();
   }, []);
 

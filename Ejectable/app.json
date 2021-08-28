@@ -2,7 +2,7 @@
   "expo": {
     "name": "GT2 Green Travel Carbon App",
     "slug": "GT2standalone",
-    "version": "2.0.4",
+    "version": "2.0.5",
     "orientation": "default",
     "description": "Travel Carbon Footprint (simplified version)",
     "icon": "./assets/images/icon.png",
@@ -29,6 +29,11 @@
       }
     },
     "android": {
+      "permissions": [
+      "ACCESS_COARSE_LOCATION",
+      "ACCESS_FINE_LOCATION",
+      "FOREGROUND_SERVICE"
+     ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
