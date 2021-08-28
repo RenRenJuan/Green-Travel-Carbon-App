@@ -19,9 +19,10 @@ export default function EndScreenInfo({ path }: { path: string }) {
         </Text>
         <TripSummary/>
         <Text
+          style = {styles.helpLinkText}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
-          Min trip is 250 meters.
+          {'Min trip for carbon accounting\n is 250 meters.'}
         </Text>
       </View>
 

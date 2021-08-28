@@ -59,11 +59,26 @@ interface expoGeoObj {
     }
 
     public get_glcoords() {
-        this.glCoords['lat'] = this.mLatitude;
-        this.glCoords['lon'] = this.mLongitude;
+      this.glCoords['lat'] = this.mLatitude;
+      this.glCoords['lon'] = this.mLongitude;
           }
 
+    public set_glcoords(lat:number,lon:number) {
+      this.glCoords['lat'] = lat;
+      this.glCoords['lon'] = lon;
+    }      
+
+    public roundTo(precision:number) {
+         var lat = this.mLatitude  * Math.pow(10,precision);
+         var lon = this.mLongitude * Math.pow(10,precision);
+             lat = (Math.round(lat)) / Math.pow(10,precision);
+             lon = (Math.round(lon)) / Math.pow(10, precision);
+         this.set_glcoords(lat,lon);   
+    }
+
     public distanceTo(otherPoint:Coordinate) : number {
+      this.roundTo(Trips.sensitivity)
+      otherPoint.roundTo(Trips.sensitivity);
       return geolib.getPreciseDistance(this.glCoords,otherPoint.glCoords,geoLibAccuracy);
     }
 
@@ -136,6 +151,7 @@ export class GT2 {
            displayInterval:number = displayBeat * heartbeat;
     public distance:number        = 0.0;
            co2Rate:number         = 250.0;  
+           sensitivity:number     = 3;
            z:number               = 0.0;
 	  public v:number               = 0.0;
     public inProgress:boolean     = false;
@@ -152,7 +168,9 @@ export class GT2 {
 
     public deltaLoc(lastFix:any) {
  
-        var t:number = 0.0;
+        var t:number   = 0.0; 
+        var lat:number = 0.0;
+        var lon:number = 0.0;
         lastFix                = JSON.stringify(lastFix);
         let expoFix:expoGeoObj = JSON.parse(lastFix);  
 
@@ -165,18 +183,18 @@ export class GT2 {
 
         }      
 
-        this.trip.loc.set(expoFix.coords['latitude'],expoFix.coords['longitude']);
+        lat = expoFix.coords['latitude']; lon = expoFix.coords['longitude'];
 
-        if (Trips.startPoint.mLatitude == 0.0) 
-            Trips.startPoint.set(this.trip.loc.mLatitude,this.trip.loc.mLongitude);
+        this.trip.loc.set(lat,lon);
+
+        if (Trips.startPoint.mLatitude == 0.0) Trips.startPoint.set(lat,lon);
     
         t = expoFix.coords['accuracy']; if (t <  minExpoAccuracy )  return;
 
-        if (this.trip.lastFix.mLatitude == 0.0)
-            this.trip.lastFix.set(this.trip.loc.mLatitude,this.trip.loc.mLongitude);
+        if (this.trip.lastFix.mLatitude == 0.0)             this.trip.lastFix.set(lat,lon);
         else 
-          {this.trip.ds += this.trip.lastFix.distanceTo(this.trip.loc);
-           this.trip.lastFix.set(this.trip.loc.mLatitude,this.trip.loc.mLongitude);
+          {this.trip.ds += this.trip.lastFix.distanceTo(this.trip.loc);          
+           this.trip.lastFix.set(lat,lon);
            if (debug > 10) console.log('delta ' + this.trip.ds);
            
           }
@@ -188,7 +206,6 @@ export class GT2 {
 
         this.trip.stop();
         this.inProgress = false;
-        if (this.distance < 250) this.distance = 0;
         this.trip.CO2   = ( this.distance / 1000 ) * this.co2Rate;
         this.nTrips++;
         
@@ -243,6 +260,7 @@ export class GT2 {
       'Destination:  ' + 'lat: ' + this.trip.loc.mLatitude.toFixed(8) +
                    ' long: ' + this.trip.loc.mLongitude.toFixed(8) + '\n' +             
       'CO2:                ' + this.trip.CO2.toFixed(1) + ' grams ' + this.CO2Effect + '\n\n' +
+      'CO2 Rate / Sensitivity: ' + this.co2Rate + " / " + this.sensitivity + '\n' + 
       'Distance covered while consuming fuel: ' + preferredUnits.toFixed(2) + ' ' + this.units );
        
     }

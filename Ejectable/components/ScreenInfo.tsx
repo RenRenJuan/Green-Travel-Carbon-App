@@ -1,19 +1,17 @@
-import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-
-import Colors from '../constants/Colors';
-import { MonoText } from './StyledText';
 import { Text, View } from './Themed';
+import * as Device from 'expo-device';
+import { withSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function ScreenInfo() {
   return (
     <View style={styles.settingsContainer}>
         <Text
-          style={styles.settingsText}
+          style={styles.switchText}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
-          {'Switch dark: km, light: mi\nset fuel, or CO2 g per km'}                  
+          {'Switch dark: km, light: mi'}                  
         </Text>  
     </View>
   );
@@ -30,6 +28,31 @@ export function ScreenInfo2() {
     </View>
   );
 }
+export function ScreenInfo4() {
+  return (
+    <View style={styles.settingsContainer}>
+        <Text
+          style={styles.sensitive}
+          lightColor="rgba(0,0,0,0.8)"
+          darkColor="rgba(255,255,255,0.8)">
+          {'higher sensitivity may cause spurious motion at rest'}                
+        </Text>  
+    </View>
+  );
+}
+
+export function ScreenInfo5() {
+  return (
+    <View style={styles.settingsContainer}>
+        <Text
+          style={styles.sensitive}
+          lightColor="rgba(0,0,0,0.8)"
+          darkColor="rgba(255,255,255,0.8)">
+          {'set CO2 rate or use fuel type buttons below'}                
+        </Text>  
+    </View>
+  );
+}
 
 export function ScreenInfo3() {
   return (
@@ -38,20 +61,19 @@ export function ScreenInfo3() {
           style={styles.titleText}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
-          Green Travel Calculator v. 2.0.0
+          Green Travel Calculator v. 2.0.4
         </Text>  
         <Text
           style={styles.versionText}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
-          expo version
+          expo {Device.osName == 'iOS' ? 'iOS ' : 'android '} version
         </Text>  
         <Text
           style={styles.cautionText}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
-          Spurious motion from expo location when at rest, addressed at end of trip and
-          as good or better than 2011 app on 2.1.0.
+          {'\nNote: accuracy depends on sensitivity setting, your device, and carrier.'}
         </Text>  
     </View>
   );
@@ -67,9 +89,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 50,
     marginVertical: 20,
   },
+  sensitive: {
+    fontWeight: 'bold',
+    fontSize: 10,
+  },
   titleText: {
     color: 'white',
     fontSize: 17,
+    lineHeight: 24,
+    textAlign: 'center',
+  },
+  switchText: {
+    fontSize: 10,
     lineHeight: 24,
     textAlign: 'center',
   },

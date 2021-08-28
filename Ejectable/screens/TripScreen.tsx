@@ -71,7 +71,7 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
         title={sButtonText}
         onPress={() => {
           if (!getAdvised()) {
-            Alert.alert("2.0.0 foreground only, 2.1 first production.");
+            Alert.alert("2.0.n runs in foreground only.");
             setAdvised();
           }
           if (!Trips.inProgress) {startTrip();

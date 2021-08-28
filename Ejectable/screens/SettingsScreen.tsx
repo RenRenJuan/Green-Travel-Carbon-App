@@ -2,30 +2,48 @@ import * as React from 'react';
 import { Alert, Button, StyleSheet, Switch, TextInput } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { useState } from 'react';
-import ScreenInfo from '../components/ScreenInfo';
+import ScreenInfo,  { ScreenInfo4, ScreenInfo5  } from '../components/ScreenInfo';
 import { Trips } from '../GT2';
 import { RootTabScreenProps } from '../types';
 
+
 export default function SettingsScreen( { navigation }: RootTabScreenProps<'Settings'>) {
-  const [number, onChangeNumber] = React.useState("");
+  const [rate, setRate]  = useState("255");
+  const [sens, setSens]  = useState("3");
   const [isKM, setMiles] = useState(false);
   const toggleUnits = () => { setMiles(previousState => !previousState)
            Trips.units = isKM ? "km" : "mi";
   };
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Model Settings</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-       <ScreenInfo />
-       <Switch
-        style={styles.switch}
-        trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={true ? "#f5dd4b" : "#f4f3f4"}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleUnits}
-        value={isKM}
-       />
+       <Text style={styles.caption}>{'\nset custom CO2 rate or use buttons below'}</Text> 
+       <View style={styles.inputs}>
+       <TextInput   
+        style={styles.input}
+        returnKeyType={'done'}
+        onChangeText={rate => { setRate(rate); Trips.co2Rate = Number(rate);} }
+        value={rate}
+        placeholder={Trips.co2Rate.toString()}
+        keyboardType="numeric"
+       />    
+       </View>
+       <Text style={styles.caption}>{'\nsensitivity'}</Text>  
+       <View style={styles.inputs}>
+       <TextInput   
+        style={styles.input}
+        returnKeyType={'done'}
+        onChangeText={sens => { setSens(sens); 
+            var s = Number(sens);
+            if (s < 3 || s > 7) Alert.alert("Sensitivity must be greater than 2 and less than 8");
+            else Trips.sensitivity = Number(sens); }}
+        value={sens}
+        placeholder={Trips.sensitivity.toString()}
+        keyboardType="numeric"
+       />      
+       </View>  
+       <ScreenInfo4/>
        <View style={styles.controls} >
        <Button
          title="Jet"
@@ -52,20 +70,25 @@ export default function SettingsScreen( { navigation }: RootTabScreenProps<'Sett
           }
        />
        </View>
-       <TextInput   
-        style={styles.input}
-        returnKeyType={'done'}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder={Trips.co2Rate.toString()}
-        keyboardType="numeric"
-       />      
+       <ScreenInfo />
+       <Switch
+        style={styles.switch}
+        trackColor={{ false: "#767577", true: "#81b0ff" }}
+        thumbColor={true ? "#f5dd4b" : "#f4f3f4"}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleUnits}
+        value={isKM}
+       />
     </View>
   );
 }
 
 
 const styles = StyleSheet.create({
+  caption: {
+    fontSize: 10,
+    justifyContent: 'center',
+  },
   switch: {
     marginVertical: 20,
   },
@@ -75,21 +98,33 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   controls: {
-    marginVertical: 20,
+    marginVertical: 5,
     width: "80%",
     flexDirection: 'row',
     justifyContent: "space-between",
+  },
+  inputs: {
+    marginVertical: 5,
+    width: "80%",
+    flexDirection: 'row',
+    justifyContent: "center",
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
   },
   separator: {
-    marginVertical: 10,
+    marginVertical: 2,
     height: 1,
     width: '80%',
   },
   input: {
+    height: 40,
+    margin: 30,
+    borderWidth: 1,
+    padding: 10,
+  },
+  input2: {
     height: 40,
     margin: 30,
     borderWidth: 1,
