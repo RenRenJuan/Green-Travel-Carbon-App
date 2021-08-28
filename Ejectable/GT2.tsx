@@ -15,7 +15,7 @@ export var   locEnabled:boolean = false;
        const displayBeat:number = 3;
 
        const geoLibAccuracy:number   = 0.1;
-       const minExpoAccuracy:number  = .01;
+       const minExpoAccuracy:number  = 5;
 
 export function getEndIsLast() : boolean       { return endIsNigh;  }  
 export function setEndIsLast(value:boolean)    { endIsNigh = value;  }       
