@@ -6,7 +6,7 @@
 - An Expo version of the same functionality as the original 2011 app but a completed and x-platform app
   that actually reports trip fuel impact.
 
-  This first v2 replacement on play and first version on app store uses an expo build and will be maintained
+  The 2.0.n series is a replacement on google and first version on apple and will be maintained
   separate from the subsequent production line which will use the [common mechanism](https://sameboat.live/sb-app) 
   for delivery of my apps from 2.1 forward.
 
