@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Alert, BackHandler, Button, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { ScreenInfo2 } from '../components/ScreenInfo';
-import { locEnabled, TripDisplay, LastTrip, Trips, setEndIsLast } from '../GT2';
+import { ver, locEnabled, TripDisplay, LastTrip, Trips, setEndIsLast } from '../GT2';
 import { RootTabScreenProps } from '../types';
 import { getAdvised, setAdvised } from './ModalScreen';
 
@@ -72,7 +72,7 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
         title={sButtonText}
         onPress={() => {
           if (!getAdvised()) {
-            Alert.alert("Note: GT2 2.0.n doesn't while run in background.");
+            Alert.alert("Note: " + ver + " doesn't run while in background or sleeping.");
             setAdvised();
           }
           if (!Trips.inProgress) {startTrip();
@@ -102,7 +102,7 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
         title={sButtonText}
         onPress={() => {
           if (!getAdvised()) {
-            Alert.alert("Note: GT2 2.0.n doesn't run while in background.");
+            Alert.alert("Note: GT2 2.0.6 doesn't run while in background or sleeping.");
             setAdvised();
           }
           if (!Trips.inProgress) {startTrip();

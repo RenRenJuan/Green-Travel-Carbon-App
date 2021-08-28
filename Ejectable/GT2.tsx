@@ -4,6 +4,7 @@ import { Text, View } from './components/Themed';
 import { StyleSheet } from 'react-native';
 import * as geolib from 'geolib';
 
+export const ver:string         = "2.06;"
        var   debug:number       = 0;
        var   endIsNigh:boolean  = false;
        var   testCount          = 0;
@@ -153,6 +154,7 @@ export class GT2 {
            startPoint:Coordinate = new Coordinate(0.0,0.0);
 
            displayInterval:number = displayBeat * heartbeat;
+           arc:number             = 0.0;
     public distance:number        = 0.0;
            co2Rate:number         = 250.0;  
            sensitivity:number     = 3;
@@ -210,6 +212,7 @@ export class GT2 {
 
         this.trip.stop();
         this.inProgress = false;
+        this.arc        = this.startPoint.distanceTo(this.trip.loc);
         this.trip.CO2   = ( this.distance / 1000 ) * this.co2Rate;
         this.nTrips++;
         
@@ -225,7 +228,7 @@ export class GT2 {
          this.co2Rate     =  last.co2Rate;
          this.units       =  last.units;
          this.sensitivity =  last.sensitivity;
-
+         this.arc         =  last.arc;
     }
 
     public setLocEnabled(value:boolean) { locEnabled = value}
@@ -245,6 +248,7 @@ export class GT2 {
     public reset() {
 
         this.distance   = 0.0;
+        this.arc        = 0.0;
         this.endPoint   = new Coordinate(0,0);
         this.startPoint = new Coordinate(0,0);
         this.v          = 0;
@@ -269,6 +273,8 @@ export class GT2 {
 
       var preferredUnits:number = ((this.units == 'km') ? (this.distance / 1000)
            : (this.distance / 1609.34));
+      var preferredUnitsArc:number = ((this.units == 'km') ? (this.arc / 1000)
+                : (this.arc / 1609.34));
 
      return ( 
       'Elapsed -        ' + this.trip.elapsed + '\n' +
@@ -278,7 +284,8 @@ export class GT2 {
                    ' long: ' + this.trip.loc.mLongitude.toFixed(8) + '\n' +             
       'CO2:                ' + this.trip.CO2.toFixed(1) + ' grams ' + this.CO2Effect + '\n\n' +
       'CO2 Rate / Sensitivity: ' + this.co2Rate + " / " + this.sensitivity + '\n' + 
-      'Distance covered while consuming fuel: ' + preferredUnits.toFixed(2) + ' ' + this.units );
+      'Arc distance from origin to destination: ' + preferredUnitsArc.toFixed(2) + this.units + '\n' +
+      'Path distance while consuming fuel: ' + preferredUnits.toFixed(2) + ' ' + this.units );
        
     }
 

@@ -21,6 +21,7 @@
     ],
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "app.greentravel.gt2",
       "buildNumber": "2",
       "infoPlist": {
         "UIBackgroundModes": [

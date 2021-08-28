@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from './Themed';
 import * as Device from 'expo-device';
-import { withSafeAreaInsets } from 'react-native-safe-area-context';
+import { ver } from '../GT2';
 
 export default function ScreenInfo() {
   return (
@@ -61,7 +61,7 @@ export function ScreenInfo3() {
           style={styles.titleText}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
-          Green Travel Calculator v. 2.0.6
+          {'Green Travel Calculator v. ' + ver }
         </Text>  
         <Text
           style={styles.versionText}
