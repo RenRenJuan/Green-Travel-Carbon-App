@@ -61,7 +61,7 @@ export function ScreenInfo3() {
           style={styles.titleText}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
-          Green Travel Calculator v. 2.0.4
+          Green Travel Calculator v. 2.0.5
         </Text>  
         <Text
           style={styles.versionText}
