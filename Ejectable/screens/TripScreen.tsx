@@ -71,7 +71,7 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
         title={sButtonText}
         onPress={() => {
           if (!getAdvised()) {
-            Alert.alert("2.0.n runs in foreground only.");
+            Alert.alert("GT2 2.0.n doesn't runs in background.");
             setAdvised();
           }
           if (!Trips.inProgress) {startTrip();

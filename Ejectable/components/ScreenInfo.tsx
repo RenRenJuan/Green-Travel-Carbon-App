@@ -18,13 +18,13 @@ export default function ScreenInfo() {
 }
 export function ScreenInfo2() {
   return (
-    <View style={styles.settingsContainer}>
+    <View>
         <Text
-          style={styles.settingsText}
+          style={styles.tripControlText}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
-          Pause trip if fuel burning interrupted.                
-        </Text>  
+          {'Pause trip if fuel burning interrupted.\n'}
+         </Text>  
     </View>
   );
 }
@@ -35,7 +35,7 @@ export function ScreenInfo4() {
           style={styles.sensitive}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)">
-          {'higher sensitivity may cause spurious motion at rest'}                
+          {'set CO2 rate above or \nselect fuel type below\nhigher sensitivity may cause\n spurious motion at rest'}                
         </Text>  
     </View>
   );
@@ -91,7 +91,8 @@ const styles = StyleSheet.create({
   },
   sensitive: {
     fontWeight: 'bold',
-    fontSize: 10,
+    fontSize: 14,
+    textAlign: 'center',
   },
   titleText: {
     color: 'white',
@@ -106,6 +107,12 @@ const styles = StyleSheet.create({
   },
   settingsText: {
     fontSize: 17,
+    lineHeight: 24,
+    textAlign: 'center',
+  },
+  tripControlText: {
+    fontSize: 14,
+    fontWeight: 'bold',
     lineHeight: 24,
     textAlign: 'center',
   },

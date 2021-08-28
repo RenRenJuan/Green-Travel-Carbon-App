@@ -18,7 +18,11 @@ export default function SettingsScreen( { navigation }: RootTabScreenProps<'Sett
     <View style={styles.container}>
       <Text style={styles.title}>Model Settings</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-       <Text style={styles.caption}>{'\nset custom CO2 rate or use buttons below'}</Text> 
+       <View style={styles.captions}>
+        <Text style={styles.caption}>CO2 / km</Text> 
+        <Text>{'                  '}</Text>
+        <Text style={styles.caption}>sensitivity</Text>
+       </View>
        <View style={styles.inputs}>
        <TextInput   
         style={styles.input}
@@ -27,10 +31,7 @@ export default function SettingsScreen( { navigation }: RootTabScreenProps<'Sett
         value={rate}
         placeholder={Trips.co2Rate.toString()}
         keyboardType="numeric"
-       />    
-       </View>
-       <Text style={styles.caption}>{'\nsensitivity'}</Text>  
-       <View style={styles.inputs}>
+       />     
        <TextInput   
         style={styles.input}
         returnKeyType={'done'}
@@ -41,7 +42,7 @@ export default function SettingsScreen( { navigation }: RootTabScreenProps<'Sett
         value={sens}
         placeholder={Trips.sensitivity.toString()}
         keyboardType="numeric"
-       />      
+       />        
        </View>  
        <ScreenInfo4/>
        <View style={styles.controls} >
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   switch: {
-    marginVertical: 20,
+    marginVertical: 2,
   },
   container: {
     flex: 1,
@@ -103,8 +104,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: "space-between",
   },
+  captions: {
+    marginVertical: 15,
+    width: "90%",
+    flexDirection: 'row',
+    justifyContent: "center"
+  },
   inputs: {
-    marginVertical: 5,
+    marginVertical: -20,
     width: "80%",
     flexDirection: 'row',
     justifyContent: "center",
@@ -120,7 +127,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    margin: 30,
+    margin: 10,
     borderWidth: 1,
     padding: 10,
   },
