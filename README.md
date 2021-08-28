@@ -14,8 +14,8 @@
 
 - Roadmap for regular production Personal Carbon Accounting domain
 
-  - 2.1.0 Begin regular version with background tracking and improved accuracy
-  - 2.2.0 WatchOS version
+  - 2.1.0 Begin main product line version embedded in sameboat commons app
+  - 2.2.0 WatchOS extension on iOS
   - 2.3.0 Maintain trip histories in cloud
   - 2.4.0 Group Aggregation 
   - 2.5.0 Reporting
