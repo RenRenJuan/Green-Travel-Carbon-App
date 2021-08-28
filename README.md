@@ -4,7 +4,7 @@
 ## 2.0.0
    
 - An Expo version of the same functionality as the original 2011 app but a completed and x-platform app
-  that actually reports trip fuel impact.
+  that actually reports trip carbon impact accurately.
 
   The 2.0.n series is a replacement on google and first version on apple and will be maintained
   separate from the subsequent production line which will use the [common mechanism](https://sameboat.live/sb-app) 
