@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Alert, BackHandler, Button, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { ScreenInfo2 } from '../components/ScreenInfo';
-import { locEnabled, TripDisplay, LastTrip, Trips } from '../GT2';
+import { locEnabled, TripDisplay, LastTrip, Trips, setEndIsLast } from '../GT2';
 import { RootTabScreenProps } from '../types';
 import { getAdvised, setAdvised } from './ModalScreen';
 
@@ -72,12 +72,12 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
         title={sButtonText}
         onPress={() => {
           if (!getAdvised()) {
-            Alert.alert("Note:GT2 2.0.n doesn't run in background.");
+            Alert.alert("Note: GT2 2.0.n doesn't while run in background.");
             setAdvised();
           }
           if (!Trips.inProgress) {startTrip();
                                   if (Trips.inProgress) { setSButtonText("End"); setPButtonText('Pause');}}
-          else                   {setSButtonText('Start'); endTrip(); navigation.push('Modal'); }}
+          else                   {setSButtonText('Start'); LastTrip.from(Trips);  endTrip(); navigation.push('Modal'); }}
         }
        />
        <Button
@@ -102,7 +102,7 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
         title={sButtonText}
         onPress={() => {
           if (!getAdvised()) {
-            Alert.alert("Note:GT2 2.0.n doesn't run in background.");
+            Alert.alert("Note: GT2 2.0.n doesn't run while in background.");
             setAdvised();
           }
           if (!Trips.inProgress) {startTrip();
@@ -120,7 +120,7 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
        </View>
       <TripDisplay></TripDisplay>
        <View>
-       <Button title={'Show Last Trip'} onPress={() => { navigation.push('Modal'); } } />
+       <Button title={'Show Last Trip'} onPress={() => { setEndIsLast(true); navigation.push('Modal'); } } />
       </View>
     </View>
    );
