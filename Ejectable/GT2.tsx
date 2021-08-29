@@ -14,7 +14,7 @@ export var   locEnabled:boolean = false;
 
        const heartbeat:number   = 500; 
        const displayBeat:number = 3;
-       const ticksPerDS         = 200;
+       const ticksPerDS         = 10;
 
        const geoLibAccuracy:number   = 0.1;
        const minExpoAccuracy:number  = 5;
@@ -114,6 +114,7 @@ class Trip {
     public elapsed:string      = "00.00.00";
            ticks:number        = 0;
            interval:any;
+           minTripDone:boolean = false;
            segments:number     = 1;
            ds:number           = 0;
            CO2:number          = 0.0;
@@ -202,6 +203,10 @@ export class GT2 {
          if ((this.trip.ticks % ticksPerDS) == 0) {
            t = expoFix.coords['accuracy']; if (t <  minExpoAccuracy )  return;
            this.trip.ds += this.trip.lastFix.distanceTo(this.trip.loc);          
+           if (this.trip.ds > 250 && !this.trip.minTripDone) {
+               this.trip.ds =0.0;
+               this.trip.minTripDone = true;
+           }
            this.trip.lastFix.set(lat,lon);
            if (debug > 10) console.log('delta ' + this.trip.ds);
            

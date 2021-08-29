@@ -102,7 +102,7 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
         title={sButtonText}
         onPress={() => {
           if (!getAdvised()) {
-            Alert.alert("Note: GT2 2.0.6 doesn't run while in background or sleeping.");
+            Alert.alert("Note: GT2" + ver + " doesn't run while in background or sleeping.");
             setAdvised();
           }
           if (!Trips.inProgress) {startTrip();
