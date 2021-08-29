@@ -23,10 +23,9 @@
   - 2.4.0 Group Aggregation 
   - 2.5.0 Reporting
 
-  A base completely free client with the core trip model will remain free and it's sources will 
-  be here.
- 
-  Feature sets in 2.2 and later will be available to [entitled users](https://eg.meansofproduction.biz/index.php/AKPERSON), with entitlements vended in app.
+  The product line version, unlike the standalone 2.0.n series will have an evolving domain model. It will also be free but with feature sets
+  that are available to users at different levels of [entitlement](https://eg.meansofproduction.biz/index.php/AKPERSON) in my domains,
+  vended in in the common domain content mgt app.
    
 
 2011 Stub App
