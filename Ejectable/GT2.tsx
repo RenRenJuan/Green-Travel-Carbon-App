@@ -4,7 +4,7 @@ import { Text, View } from './components/Themed';
 import { StyleSheet } from 'react-native';
 import * as geolib from 'geolib';
 
-export const ver:string         = "2.06;"
+export const ver:string         = "2.0.7"
        var   debug:number       = 0;
        var   endIsNigh:boolean  = false;
        var   testCount          = 0;
@@ -14,6 +14,7 @@ export var   locEnabled:boolean = false;
 
        const heartbeat:number   = 500; 
        const displayBeat:number = 3;
+       const ticksPerDS         = 200;
 
        const geoLibAccuracy:number   = 0.1;
        const minExpoAccuracy:number  = 5;
@@ -193,13 +194,14 @@ export class GT2 {
 
         this.trip.loc.set(lat,lon);
 
-        if (Trips.startPoint.mLatitude == 0.0) Trips.startPoint.set(lat,lon);
-    
-        t = expoFix.coords['accuracy']; if (t <  minExpoAccuracy )  return;
+        if (Trips.startPoint.mLatitude == 0.0) Trips.startPoint.set(lat,lon);  
 
-        if (this.trip.lastFix.mLatitude == 0.0)             this.trip.lastFix.set(lat,lon);
+        if (this.trip.lastFix.mLatitude == 0.0)
+             this.trip.lastFix.set(lat,lon);
         else 
-          {this.trip.ds += this.trip.lastFix.distanceTo(this.trip.loc);          
+         if ((this.trip.ticks % ticksPerDS) == 0) {
+           t = expoFix.coords['accuracy']; if (t <  minExpoAccuracy )  return;
+           this.trip.ds += this.trip.lastFix.distanceTo(this.trip.loc);          
            this.trip.lastFix.set(lat,lon);
            if (debug > 10) console.log('delta ' + this.trip.ds);
            
@@ -341,7 +343,7 @@ export class TripDisplay extends React.Component {
              {Trips.getTripPanel() }
            </Text>
          </View> );
-         else; 
+         else
          return(
          <View>
            <Text style={styles.tripText}>

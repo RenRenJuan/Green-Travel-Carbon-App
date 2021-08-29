@@ -91,7 +91,7 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
       <TripDisplay></TripDisplay>
     </View>
    );
-   else;
+   else
    return (
     <View style={styles.container}>
       <Text style={styles.title}>Trip Control</Text>
