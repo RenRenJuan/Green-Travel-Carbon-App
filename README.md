@@ -10,11 +10,14 @@
   separate from the subsequent production line which will use the [common mechanism](https://sameboat.live/sb-app) 
   for delivery of my apps from 2.1 forward.
 
+  2.0.7 was feature complete at the end of August 2011. 2.0.8 will the stable baseline of same thing
+  with background operation.
+
 ## 2.n.m
 
 - Roadmap for regular production Personal Carbon Accounting domain
 
-  - 2.1.0 Begin main product line version embedded in sameboat commons app
+  - 2.1.0 1st embedded product line release
   - 2.2.0 WatchOS extension on iOS
   - 2.3.0 Maintain trip histories in cloud
   - 2.4.0 Group Aggregation 

@@ -204,7 +204,7 @@ export class GT2 {
            t = expoFix.coords['accuracy']; if (t <  minExpoAccuracy )  return;
            this.trip.ds += this.trip.lastFix.distanceTo(this.trip.loc);          
            if (this.trip.ds > 250 && !this.trip.minTripDone) {
-               this.trip.ds =0.0;
+               this.trip.ds -= 250;
                this.trip.minTripDone = true;
            }
            this.trip.lastFix.set(lat,lon);
