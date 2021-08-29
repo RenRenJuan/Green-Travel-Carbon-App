@@ -10,8 +10,8 @@
   separate from the subsequent production line which will use the [common mechanism](https://sameboat.live/sb-app) 
   for delivery of my apps from 2.1 forward.
 
-  2.0.7 was feature complete at the end of August 2011. 2.0.8 will the stable baseline of same thing
-  with background operation.
+  2.0.7 was feature complete at the end of August 2011. 2.0.8 will be the stable baseline of same thing
+  with background operation. maintained with stack and platform major version increments.
 
 ## 2.n.m
 
