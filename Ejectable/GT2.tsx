@@ -230,6 +230,7 @@ export class GT2 {
          this.startPoint  =  last.startPoint;
          this.trip.loc    =  last.trip.loc;
          this.elapsed     =  last.elapsed;
+         this.trip.elapsed=  last.trip.elapsed;
          this.endPoint    =  last.endPoint;
          this.CO2Effect   =  last.CO2Effect;
          this.co2Rate     =  last.co2Rate;
