@@ -20,12 +20,15 @@ export function setAdvised() : void    { advised = true; }
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
+
   const [isKM, setIsKM] = useState(false);
   const toggleUnits = () => setIsKM(previousState => !previousState);
-  const [location, setLocation] = useState(Object);
-  const [errorMsg, setErrorMsg] = useState("");
+  
+  
+   const [location, setLocation] = useState(Object);
+   const [errorMsg, setErrorMsg] = useState("");
 
-  useEffect(() => {
+   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -41,15 +44,15 @@ export default function App() {
       Trips.deltaLoc(location);
       }
     })();
-  }, []);
+   }, []);
 
-  expoGeoState = 'Waiting..';
-  if (errorMsg) {
+   expoGeoState = 'Waiting..';
+   if (errorMsg) {
     expoGeoState = errorMsg;
-  } else if (location) { 
+   } else if (location) { 
     expoGeoState = JSON.stringify(location);
-  }
-
+   }
+  
 
   if (!isLoadingComplete) {
     return null;

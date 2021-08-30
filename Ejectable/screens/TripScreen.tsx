@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Alert, BackHandler, Button, StyleSheet } from 'react-native';
+import { Alert, Button, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { ScreenInfo2 } from '../components/ScreenInfo';
-import { ver, locEnabled, TripDisplay, LastTrip, Trips, setEndIsLast } from '../GT2';
+import { bgOps, TripDisplay, LastTrip, Trips, setEndIsLast } from '../GT2';
 import { RootTabScreenProps } from '../types';
-import { getAdvised, setAdvised } from './ModalScreen';
+import * as Device from 'expo-device';
 
 var debug:number    =  0;
 
@@ -32,11 +32,12 @@ const styles = StyleSheet.create({
 });
 
 
-function startTrip() {
+function startTrip() { 
 
-  if (!locEnabled) {
-    Alert.alert("Location services unavailable can't start trip.");
-    return;
+  if (!bgOps) {
+    if (Device.osName === 'iOS')
+         Alert.alert("Background location not enabled. Must be in foreground and awake during trip!");
+    else Alert.alert('Stay in foreground, awake during trip!');    
   } 
 
   Trips.start();
@@ -71,10 +72,6 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
        <Button
         title={sButtonText}
         onPress={() => {
-          if (!getAdvised()) {
-            Alert.alert("Note: " + ver + " doesn't run while in background or sleeping.");
-            setAdvised();
-          }
           if (!Trips.inProgress) {startTrip();
                                   if (Trips.inProgress) { setSButtonText("End"); setPButtonText('Pause');}}
           else                   {setSButtonText('Start'); LastTrip.from(Trips);  endTrip(); navigation.push('Modal'); }}
@@ -101,10 +98,6 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
        <Button
         title={sButtonText}
         onPress={() => {
-          if (!getAdvised()) {
-            Alert.alert("Note: GT2" + ver + " doesn't run while in background or sleeping.");
-            setAdvised();
-          }
           if (!Trips.inProgress) {startTrip();
                                   if (Trips.inProgress) { setSButtonText("End"); setPButtonText('Pause');}}
           else                   {setSButtonText('Start'); endTrip(); LastTrip.from(Trips); navigation.push('Modal'); }}

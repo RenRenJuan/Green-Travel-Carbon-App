@@ -4,11 +4,11 @@ import { Text, View } from './components/Themed';
 import { StyleSheet } from 'react-native';
 import * as geolib from 'geolib';
 
-export const ver:string         = "2.0.7"
+export const ver:string         = "2.0.8"
        var   debug:number       = 0;
        var   endIsNigh:boolean  = false;
        var   testCount          = 0;
-       var   bgEnabled:boolean  = false;
+export var   bgOps:boolean      = false;
        var   expoGeoState:any   = null;
 export var   locEnabled:boolean = false;
 
@@ -20,7 +20,8 @@ export var   locEnabled:boolean = false;
        const minExpoAccuracy:number  = 5;
 
 export function getEndIsLast() : boolean       { return endIsNigh;  }  
-export function setEndIsLast(value:boolean)    { endIsNigh = value;  }       
+export function setBgOps(value:boolean)        { bgOps = value;  } 
+export function setEndIsLast(value:boolean)    { endIsNigh = value;  }
 
 const styles = StyleSheet.create({
     tripText: {
@@ -133,7 +134,7 @@ class Trip {
                    }       
 
     public start()   { this.interval = setInterval(() => this.tick(), heartbeat);
-                       if (!bgEnabled) startTracking(this);
+                       if (!bgOps) startTracking(this);
     }
 
     public resume()  { this.lastFix.mLatitude = 0.0;
@@ -143,7 +144,7 @@ class Trip {
     public stop()    { Trips.distance += this.ds;
                        this.ds = 0.0;
                        clearInterval(this.interval); 
-                       if (!bgEnabled) stopTracking(this);              
+                       if (!bgOps) stopTracking(this);              
                      }
 
 }

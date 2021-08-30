@@ -2,7 +2,7 @@
   "expo": {
     "name": "GT2 Green Travel Carbon App",
     "slug": "GT2standalone",
-    "version": "2.0.7",
+    "version": "2.0.8",
     "orientation": "default",
     "description": "Travel Carbon Footprint (simplified version)",
     "icon": "./assets/images/icon.png",
@@ -22,7 +22,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.greentravel.gt2",
-      "buildNumber": "3",
+      "buildNumber": "4",
       "infoPlist": {
         "UIBackgroundModes": [
           "location",
