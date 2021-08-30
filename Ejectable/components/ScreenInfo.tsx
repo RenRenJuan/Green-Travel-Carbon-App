@@ -2,8 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from './Themed';
 import * as Device from 'expo-device';
-import { bgOps, ver } from '../GT2';
-import PermissionsButton from '../BGEO';
+import { ver } from '../GT2';
 
 export default function ScreenInfo() {
   return (
@@ -56,7 +55,6 @@ export function ScreenInfo5() {
 }
 
 export function ScreenInfo3() {
-  if (bgOps)
   return (
     <View style={styles.splashContainer}>
         <Text
@@ -71,30 +69,6 @@ export function ScreenInfo3() {
           darkColor="rgba(255,255,255,0.8)">
           expo {Device.osName == 'iOS' ? 'iOS ' : 'android '} version
         </Text>  
-        <Text
-          style={styles.cautionText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)">
-          {'\nNote: accuracy depends on sensitivity setting, your device, and carrier.'}
-        </Text>  
-    </View>
-  );
-  else
-  return (
-    <View style={styles.splashContainer}>
-        <Text
-          style={styles.titleText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)">
-          {'Green Travel Calculator v. ' + ver }
-        </Text>  
-        <Text
-          style={styles.versionText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)">
-          expo {Device.osName == 'iOS' ? 'iOS ' : 'android '} version
-        </Text>  
-        <PermissionsButton />
         <Text
           style={styles.cautionText}
           lightColor="rgba(0,0,0,0.8)"

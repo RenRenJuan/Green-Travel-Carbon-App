@@ -6,6 +6,7 @@ import { ScreenInfo2 } from '../components/ScreenInfo';
 import { bgOps, TripDisplay, LastTrip, Trips, setEndIsLast } from '../GT2';
 import { RootTabScreenProps } from '../types';
 import * as Device from 'expo-device';
+import PermissionsButton from '../BGEO';
 
 var debug:number    =  0;
 
@@ -65,6 +66,7 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
    if (Trips.nTrips < 1)
    return (
     <View style={styles.container}>
+    <PermissionsButton />
       <Text style={styles.title}>Trip Control</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />  
       <ScreenInfo2 />
@@ -91,6 +93,7 @@ export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) 
    else
    return (
     <View style={styles.container}>
+    <PermissionsButton />
       <Text style={styles.title}>Trip Control</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />  
       <ScreenInfo2 />

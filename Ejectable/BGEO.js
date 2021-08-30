@@ -4,7 +4,7 @@ import { Pressable } from 'react-native';
 import { Text, View } from './components/Themed.tsx';
 import * as TaskManager from 'expo-task-manager';
 import * as Location from 'expo-location';
-import { Trips, setBgOps } from './GT2';
+import { bgOps, Trips, setBgOps } from './GT2';
 
 const LOCATION_TASK_NAME = 'background-location-task';
 
@@ -26,12 +26,20 @@ const LOCATION_TASK_NAME = 'background-location-task';
 };
 
 export default function PermissionsButton() {
+  if (!bgOps)
   return(
   <View style={styles.container} lightColor="lime" darkColor="forestgreen">
     <Pressable style={styles.button} onPress={requestPermissions}>
       <Text style={styles.text}>{'Enable background operations'}</Text>
+      <Text style={styles.text2}>{'                     (Only used during a trip)'}</Text>
     </Pressable>
   </View>);
+  else
+  return(
+  <View style={styles.container} lightColor="lime" darkColor="forestgreen">
+      <Text style={styles.text}>{'Trips can run in background.'}</Text>
+  </View>);
+
 }
 
 TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
@@ -50,12 +58,20 @@ TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
-    marginBottom: -30,
+    marginVertical: 2,
+    marginTop:  -40,
+    marginBottom: 25,
     alignItems: 'center',
   },
   button: {
     fontSize: 10,
     backgroundColor: 'lime',
   },
+  text: {
+    color: "blue",
+  },
+  text2: {
+    fontSize: 8,
+    color: "navy",
+  }
 });
