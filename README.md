@@ -3,7 +3,7 @@
 
 ## 2.0.0
    
-- An Expo version of the same functionality as the original 2011 app but a completed app
+- An Expo version of the same functionality as the original 2011 app but a completed [x-platform](https://apps.apple.com/ao/app/gt2-green-travel-carbon-app/id1583117880) app
   that actually reports trip carbon impact accurately.
 
   The 2.0.n series is a replacement on google and first version on apple and will be maintained
