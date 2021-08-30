@@ -3,7 +3,7 @@
 
 ## 2.0.0
    
-- An Expo version of the same functionality as the original 2011 app but a completed and x-platform app
+- An Expo version of the same functionality as the original 2011 app but a completed app
   that actually reports trip carbon impact accurately.
 
   The 2.0.n series is a replacement on google and first version on apple and will be maintained
@@ -18,7 +18,7 @@
 - Roadmap for regular production Personal Carbon Accounting domain
 
   - 2.1.0 1st embedded product line release
-  - 2.2.0 WatchOS extension on iOS
+  - 2.2.0 Wearable extension 
   - 2.3.0 Maintain trip histories in cloud
   - 2.4.0 Group Aggregation 
   - 2.5.0 Reporting
@@ -31,7 +31,7 @@
 2011 Stub App
 =============
 
-  Original was just Android (4) and a proof of GPS. It still works on older Android as of 2021-08-16 but 
+  Original was Android (4) and a proof of GPS. It still works on older Android as of 2021-08-16 but 
   will not work with Android 10 due to the app menu button and its backfill the overflow menu 
   button being completely removed. The latter is the three  dots on the nav bar. It was
   removed but was still accessible up to 9 either standardly or by a gesture, If you can't get to this
