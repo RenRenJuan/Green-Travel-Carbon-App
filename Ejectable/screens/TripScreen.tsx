@@ -56,12 +56,13 @@ function pauseTrip() {
 
 }
 
+
 function endTrip() {  Trips.end(); }
 
 export default function TripScreen( { navigation }: RootTabScreenProps<'Trip'>) {
 
-  const [sButtonText, setSButtonText] = useState("Start"); 
-  const [pButtonText, setPButtonText] = useState("Pause");
+  const [sButtonText, setSButtonText]  = useState("Start"); 
+  const [pButtonText, setPButtonText]  = useState("Pause");
    
    if (Trips.nTrips < 1)
    return (
