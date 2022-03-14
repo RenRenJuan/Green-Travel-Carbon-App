@@ -24,7 +24,7 @@
   - 2.5.0 Reporting
 
   The product line version, unlike the standalone 2.0.n series will have an evolving domain model. It will also be free but with feature sets
-  that are available to users at different levels of [entitlement](https://eg.meansofproduction.biz/index.php/AKPERSON) in my domains,
+  that are available to users at different levels of [entitlement](https://eg.meansofproduction.biz/eg/index.php/AKPERSON) in my domains,
   vended in in the common domain content mgt app.
    
 
