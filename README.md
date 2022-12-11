@@ -17,7 +17,7 @@
 
 - Roadmap for regular production Personal Carbon Accounting domain
 
-  - 2.1.0 [Product baseline](https://devops1.sameboat.network)
+  - 2.1.0 [Product baseline](https://devops1.sameboat.network/sb-app)
   - 2.2.0 Wearable extension 
   - 2.3.0 Maintain trip histories in cloud
   - 2.4.0 Group Aggregation 
