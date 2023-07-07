@@ -12,7 +12,7 @@
 
   2.0.7 was feature complete at the end of August 2021.
 
-  2.0.8 the stable baseline of same thing but with background operation, subsequent change only for stack maintenance.
+  2.0.8 the stable baseline of same thing but with background operation, with subsequent change only for stack maintenance was complete in July 2023.
 
 ## 2.n.m
 
@@ -26,8 +26,11 @@
 
   The product line version, unlike the standalone 2.0.n series will be based on the Domain Space App.
 
-  It will also be free but with feature sets at higher levels of [entitlement](https://eg.meansofproduction.biz/eg/index.php/AKPERSON),
-  vended in-app.
+  It will also be free but with feature sets at higher levels of [entitlement](https://eg.meansofproduction.biz/eg/index.php/AKPERSON), vended in-app.
+
+  The product line source app will continue the original cause for being of the 2011 app which was to demonstrate GPS in a carbon app for the Boston NRDC.
+  From this point the app will be a generalization of the travel tracking app, useful for other applications such as excercise, etc. A new app name will
+  be used for the carbon accounting application of this generalized app, Personal Carbon Accounting.
    
 
 2011 Stub App
