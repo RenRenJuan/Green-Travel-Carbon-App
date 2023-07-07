@@ -10,8 +10,9 @@
   separate from the subsequent production line which will use the [common mechanism](https://devops1.sameboat.network/sb-app) 
   for delivery of my apps from 2.1 forward.
 
-  2.0.7 was feature complete at the end of August 2021. 2.0.8 will be the stable baseline of same thing
-  with background operation, maintained with stack and platform major version increments.
+  2.0.7 was feature complete at the end of August 2021.
+
+  2.0.8 the stable baseline of same thing but with background operation, subsequent change only for stack maintenance.
 
 ## 2.n.m
 
@@ -23,9 +24,10 @@
   - 2.4.0 Group Aggregation 
   - 2.5.0 Reporting
 
-  The product line version, unlike the standalone 2.0.n series will have an evolving domain model. It will also be free but with feature sets
-  that are available to users at different levels of [entitlement](https://eg.meansofproduction.biz/eg/index.php/AKPERSON) in my domains,
-  vended in in the common domain content mgt app.
+  The product line version, unlike the standalone 2.0.n series will be based on the Domain Space App.
+
+  It will also be free but with feature sets at higher levels of [entitlement](https://eg.meansofproduction.biz/eg/index.php/AKPERSON),
+  vended in-app.
    
 
 2011 Stub App
