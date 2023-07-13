@@ -14,17 +14,17 @@
 
   2.0.8 the stable baseline of same thing but with background operation, with subsequent change only for stack maintenance was complete in July 2023.
 
-## 2.n.m
+## 1.n.m
 
-- Roadmap for regular production Personal Carbon Accounting domain
+- Roadmap for regular production Personal Carbon Accounting domain, PCA 1
 
-  - 2.1.0 [Product baseline](https://devops1.sameboat.network/sb-app)
-  - 2.2.0 Wearable extension 
-  - 2.3.0 Maintain trip histories in cloud
-  - 2.4.0 Group Aggregation 
-  - 2.5.0 Reporting
+  - 1.1.0 [Product baseline](https://devops1.sameboat.network/sb-app)
+  - 1.2.0 Wearable extension 
+  - 1.3.0 Maintain trip histories in cloud
+  - 1.4.0 Group Aggregation 
+  - 1.5.0 Reporting
 
-  The product line version, unlike the standalone 2.0.n series will be based on the Domain Space App.
+  The product line version, unlike the standalone 2.0.n series will be based on the Domain Space App and so the semantic numbering resets.
 
   It will also be free but with feature sets at higher levels of [entitlement](https://eg.meansofproduction.biz/eg/index.php/AKPERSON), vended in-app.
 
