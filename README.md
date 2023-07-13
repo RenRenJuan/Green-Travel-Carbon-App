@@ -25,12 +25,11 @@
   - 1.5.0 Reporting
 
   The product line version, unlike the standalone 2.0.n series will be based on the Domain Space App and so the semantic numbering resets.
-
   It will also be free but with feature sets at higher levels of [entitlement](https://eg.meansofproduction.biz/eg/index.php/AKPERSON), vended in-app.
 
-  The product line source app will expand upon the original cause for being of the 2011 app which was to demonstrate GPS in a carbon app for the Boston NRDC.
-  From this point the app will be a generalization of the travel tracking app, useful for other applications such as excercise, etc. A new app name will
-  be used for the carbon accounting application of this generalized app, Personal Carbon Accounting.
+  The product line source app will greatly expand upon the cause for being of the 2011 app which was to demonstrate working GPS (see below).
+  Motion/travel tracking remains the core function but there will be additional reusable infra for a number of purposes, in particular
+  wearable extensions. PCA 1 is an application of this new code which is available to entitled users of git.meansofproduction.biz.
    
 
 2011 Stub App
