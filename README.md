@@ -12,7 +12,7 @@
 
   2.0.7 was feature complete at the end of August 2021.
 
-  2.0.8 the stable baseline of same thing but with background operation, with subsequent change only for stack maintenance was complete in August 2023.
+  2.0.8 the stable baseline of same thing but with background operation, with subsequent change only for stack maintenance was complete in Sept 2023.
 
 ## 1.n.m
 
