@@ -14,7 +14,9 @@
 
   2.0.8 the stable baseline of same thing but with background operation, with subsequent change only for stack maintenance was complete in Sept 2023.
 
-## 1.n.m
+## 1.n.m (semantic reset)
+
+PCAD which is sold as Green Travel 2, 2.n.m is a maintained instance of the [PMTA](https://sameboat.network/personaleco) generic base.
 
 - Roadmap for regular production Personal Carbon Accounting domain, PCA 1
 
