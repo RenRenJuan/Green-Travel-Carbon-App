@@ -16,7 +16,7 @@
 
 ## 1.n.m (semantic reset)
 
-PCAD which is sold as Green Travel 2, 2.n.m is a maintained instance of the [PMTA](https://sameboat.network/personaleco) generic base.
+PCA which is sold as Green Travel 2.n.m, n > 0 is a maintained instance of the [PMTA](https://sameboat.network/personaleco) generic base.
 
 - Roadmap for regular production Personal Carbon Accounting domain, PCA 1
 
